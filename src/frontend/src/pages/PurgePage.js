@@ -157,12 +157,20 @@ const PurgePage = () => {
                 <Typography variant="h4" align="center" gutterBottom>
                     User Purge Management
                 </Typography>
+
+                <div className="container">
+                    <Typography variant="body1" className="text-secondary mb-4 justified-text">
+                        This section provides an overview of the inactive users in the server when toggling the Preview Inactive Users
+                        button. The Initiate Purge button will trigger an alert confirming the purge prior to initiation.
+                    </Typography>
+                </div>
+
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         {error && (
                             <Alert
                                 severity={error.includes('Successfully') ? 'success' : 'error'}
-                                sx={{ mb: 3 }}
+                                sx={{mb: 3}}
                                 onClose={() => setError(null)}
                             >
                                 {error}
@@ -181,13 +189,13 @@ const PurgePage = () => {
 
                         {inactiveUsers.length > 0 ? (
                             <>
-                                <Box sx={{ height: 400, marginBottom: '1rem' }}>
+                                <Box sx={{height: 400, marginBottom: '1rem'}}>
                                     <DataGrid
                                         rows={inactiveUsers}
                                         columns={columns}
                                         initialState={{
-                                            pagination: { 
-                                                paginationModel: { pageSize: 5 }
+                                            pagination: {
+                                                paginationModel: {pageSize: 5}
                                             },
                                         }}
                                         pageSizeOptions={[5, 10, 20]}
@@ -239,7 +247,7 @@ const PurgePage = () => {
                                     color="error"
                                     variant="contained"
                                     disabled={purgeInProgress}
-                                    startIcon={purgeInProgress && <CircularProgress size={20} color="inherit" />}
+                                    startIcon={purgeInProgress && <CircularProgress size={20} color="inherit"/>}
                                 >
                                     {purgeInProgress ? 'Purging...' : 'Confirm Purge'}
                                 </Button>
@@ -247,8 +255,8 @@ const PurgePage = () => {
                         </Dialog>
                     </div>
 
-                    <div className="col-md-4">
-                        <PurgeHistory />
+                    <div className="container my-4">
+                        <PurgeHistory/>
                     </div>
                 </div>
             </div>

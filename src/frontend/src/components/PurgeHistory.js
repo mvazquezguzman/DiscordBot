@@ -41,55 +41,53 @@ function PurgeHistory() {
 
     return (
         <div className="container mt-4">
-            <Typography
-                variant="h4"
-                className="text-center mb-4"
-                sx={{
-                    mb: 3,
-                    textAlign: 'center',
-                    fontWeight: 500,
-                    color: 'text.primary'
-                }}
-            >
+            <Typography variant="h4" className="text-center mb-4">
                 Purge History
             </Typography>
 
+            <div className="container">
+                <Typography variant="body1" className="text-secondary mb-4 justified-text">
+                    This section provides a log of admins who had initiated a purge, and what users were purged. It also
+                    displays the date and time of the initiated purge.
+                </Typography>
+            </div>
+
             <Box className="row justify-content-center">
                 <div className="col-md-8">
-                {loading ? (
-                    <div className="d-flex justify-content-center align-items-center" style={{ height: '200px' }}>
-                        <CircularProgress />
-                    </div>
-                ) : error ? (
-                    <Typography color="error" className="text-center">{error}</Typography>
-                ) : purgeHistory.length === 0 ? (
-                    <Typography>No purge history available.</Typography>
-                ) : (
-                    <Box className="overflow-auto" style={{ maxHeight: '400px' }}>
-                    {purgeHistory.slice(0, 3).map((purge, index) => (
-                            <Paper
-                                key={index}
-                                elevation={1}
-                                className="mb-3 p-3"
-                                sx={{
-                                    p: 2,
-                                    bgcolor: '#f5f0e6',  // Beige background color
-                                    borderRadius: 1,
-                                    '&:hover': {
-                                        bgcolor: '#f0e9dd'  // Slightly darker beige on hover
-                                    }
-                                }}
-                            >
-                                <Typography variant="subtitle1" sx={{ color: '#2c2c2c' }}>
-                                    <strong>{purge.username}</strong> purged {purge.purgedUsers?.length || 0} users
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: '#666' }}>
-                                    {formatDate(purge.executionDate)}
-                                </Typography>
-                            </Paper>
-                        ))}
-                    </Box>
-                )}
+                    {loading ? (
+                        <div className="d-flex justify-content-center align-items-center" style={{height: '200px'}}>
+                            <CircularProgress/>
+                        </div>
+                    ) : error ? (
+                        <Typography color="error" className="text-center">{error}</Typography>
+                    ) : purgeHistory.length === 0 ? (
+                        <Typography>No purge history available.</Typography>
+                    ) : (
+                        <Box className="overflow-auto" style={{maxHeight: '400px'}}>
+                            {purgeHistory.slice(0, 3).map((purge, index) => (
+                                <Paper
+                                    key={index}
+                                    elevation={1}
+                                    className="mb-3 p-3"
+                                    sx={{
+                                        p: 2,
+                                        bgcolor: '#f5f0e6',  // Beige background color
+                                        borderRadius: 1,
+                                        '&:hover': {
+                                            bgcolor: '#f0e9dd'  // Slightly darker beige on hover
+                                        }
+                                    }}
+                                >
+                                    <Typography variant="subtitle1" sx={{color: '#2c2c2c'}}>
+                                        <strong>{purge.username}</strong> purged {purge.purgedUsers?.length || 0} users
+                                    </Typography>
+                                    <Typography variant="body2" sx={{color: '#666'}}>
+                                        {formatDate(purge.executionDate)}
+                                    </Typography>
+                                </Paper>
+                            ))}
+                        </Box>
+                    )}
                 </div>
             </Box>
         </div>
