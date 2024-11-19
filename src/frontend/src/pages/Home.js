@@ -35,10 +35,7 @@ const Home = () => {
                                 Our goal is to enhance the Discord experience by automating repetitive tasks and improving community engagement.
                             </Typography>
                             <Typography variant="body1" className="text-justify mb-3">
-                                If you have any questions or suggestions, feel free check out our{' '}
-                                <a href="/faq" className="text-primary text-decoration-underline">
-                                    FAQ
-                                </a> page.
+                                If you have any questions or suggestions, feel free check out our FAQ page.
                             </Typography>
 
                         </Paper>

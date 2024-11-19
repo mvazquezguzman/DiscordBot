@@ -172,9 +172,6 @@ const Theme = createTheme({
                 root: {
                     '&.accordion-question': {
                         fontSize: '1.5rem',
-                        '&:hover': {
-                            textTransform: 'uppercase',
-                        },
                     },
                     '&.sidebar-title': {
                         color: 'black',

@@ -1,5 +1,3 @@
-// TODO: The Add Users button opens the form that's in the modal - the uses that populate in the drop down need to exclude used that are already on the blacklist
-// import mui styles lines 8
 import React, { useEffect, useState } from 'react';
 import Navbar from "../components/Navbar";
 import {Typography, Box, Button, Modal, FormControl, Select, MenuItem, InputLabel, Paper} from '@mui/material';
@@ -148,6 +146,7 @@ const BlacklistPage = () => {
                         This page provides an overview of all blacklisted users within the application. You can review
                         and manage blacklisted entries using the table below, which displays user details such as their name and ID.
                         Select users from the table to remove them from the blacklist. Add users to the blacklist via the corresponding button.
+                        Toggle refresh to display updated blacklist.
                     </Typography>
 
                 </div>
