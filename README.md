@@ -150,15 +150,22 @@ https://github.com/GGC-SD/DiscordBot.git
 ## Neck Beard Team Roles
 **Sebastian Lian Carmagnola**
 https://github.com/GGC-SD/DiscordBot.git
+
+![Sebastian](documents/docs-Fall2024/Sebastian.png)
 1. Data Modeler :space_invader:
 2. Testing Lead :keyboard:
 
 **Najee Douglas**
+https://github.com/GGC-SD/DiscordBot.git
+
+![Najee](documents/docs-Fall2024/Najee.png)
 1. UI/UX Design :file_folder:
 2. Documentation Lead :scroll:
 
-**Etienne Laccruche** 
+**Etienne Laccruche**
 https://github.com/GGC-SD/DiscordBot.git
+
+![ET](documents/docs-Fall2024/ET.png)
 1. Lead Programmer 💻
 2. Client Liaison 🧑‍🤝‍🧑
 
@@ -167,8 +174,10 @@ https://github.com/GGC-SD/DiscordBot.git
 2. Team Manager 🏴‍☠️
 
 ## Project Flyer & Video
-- Flyer here
-- Video link here
+![Discord Bot Flyer](documents/docs-Fall2024/Discord-Bot-Fyler.png)
+
+[Watch the demo video on YouTube](https://youtu.be/qnSWJWxF50M?si=Gzr8XobdUlc2RazH)
+
 
 ## License
 <a href="https://github.com/GGC-SD/DiscordBot">BashBot</a> © 2024 by <a href="https://github.com/GGC-SD/DiscordBot/graphs/contributors" target="_blank">Sebastian L. Carmagnola, Najee Douglas, Etienne Laccruche, Jonathan Hummel, Anca Doloc Mihu, David Rivera, Mike Deiters</a> is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. See the [LICENSE](./documents/docs-Fall2024/License.md) file for details.
