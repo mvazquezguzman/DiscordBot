@@ -201,20 +201,20 @@ https://github.com/GGC-SD/DiscordBot.git
 
 ## CtrlAltKick Team
 **Abdou Senghore**
-1. Primary Role
-2. Secondary Role
+1. UI/UX Designer
+2. Client Liaison
 
 **Huyen Pham**
-1. Primary Role
-2. Secondary Role
+1. Data Modeler
+2. Team Manager
 
-**	Matilda Vazquezguzman**
-1. Primary Role
-2. Secondary Role
+**Matilda Vazquezguzman**
+1. Data Modeler
+2. Documentation Lead
 
 **Nikki Thao**
-1. Primary Role
-2. Secondary Role
+1. Lead Programmer
+2. Testing Lead
 
 ## Project Flyer & Video
 
