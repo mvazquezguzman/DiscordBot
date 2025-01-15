@@ -181,3 +181,41 @@ https://github.com/GGC-SD/DiscordBot.git
 
 ## License
 <a href="https://github.com/GGC-SD/DiscordBot">BashBot</a> © 2024 by <a href="https://github.com/GGC-SD/DiscordBot/graphs/contributors" target="_blank">Sebastian L. Carmagnola, Najee Douglas, Etienne Laccruche, Jonathan Hummel, Anca Doloc Mihu, David Rivera, Mike Deiters</a> is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. See the [LICENSE](./documents/docs-Fall2024/License.md) file for details.
+
+# Spring 2025
+## Description
+
+## Links
+- Link to deployed project
+- Link to other project resources and documentation
+
+## Technologies
+- JavaScript
+- [Node.js](https://nodejs.org/en/)
+
+## Working Features
+
+## Installation Steps
+
+## How To Run
+
+## CtrlAltKick Team
+**Abdou Senghore**
+1. Primary Role
+2. Secondary Role
+
+**Huyen Pham**
+1. Primary Role
+2. Secondary Role
+
+**	Matilda Vazquezguzman**
+1. Primary Role
+2. Secondary Role
+
+**Nikki Thao**
+1. Primary Role
+2. Secondary Role
+
+## Project Flyer & Video
+
+## License
