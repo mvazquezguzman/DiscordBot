@@ -209,9 +209,10 @@ Discord is an instant messaging and social platform where users can communicate 
 1. UI/UX Designer
 2. Client Liaison
 
-**Huyen Pham**
-1. Data Modeler
-2. Team Manager
+**Huyen Pham** <br>
+<img src = "documents/docs-Spring2025/Huyen.jpg" width="" height="200">
+1. Data Modeler :file_folder:
+2. Team Manager :busts_in_silhouette:
 
 **Matilda Vazquezguzman**
 1. Data Modeler
