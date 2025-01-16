@@ -213,8 +213,8 @@ https://github.com/GGC-SD/DiscordBot.git
 2. Documentation Lead
 
 **Nikki Thao**
-1. Lead Programmer
-2. Testing Lead
+1. Lead Programmer :computer:
+2. Testing Lead :test_tube:
 
 ## Project Flyer & Video
 
