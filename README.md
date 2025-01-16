@@ -184,22 +184,27 @@ https://github.com/GGC-SD/DiscordBot.git
 
 # Spring 2025
 ## Description
+Discord is an instant messaging and social platform where users can communicate through text, voice chat, and video calls. Our team has been tasked with fixing bugs and implementing new features to the purging Discord bot.
+
 
 ## Links
 - Link to deployed project
-- Link to other project resources and documentation
+- Link to other resources
 
 ## Technologies
 - JavaScript
-- [Node.js](https://nodejs.org/en/)
 
 ## Working Features
+-
 
 ## Installation Steps
+-
 
 ## How To Run
+-
 
 ## CtrlAltKick Team
+
 **Abdou Senghore**
 1. UI/UX Designer
 2. Client Liaison
@@ -212,10 +217,13 @@ https://github.com/GGC-SD/DiscordBot.git
 1. Data Modeler
 2. Documentation Lead
 
-**Nikki Thao**
+**Nikki Thao** <br>
+<img src = "documents/docs-Spring2025/nikki.JPG" width="" height="200">
 1. Lead Programmer :computer:
 2. Testing Lead :test_tube:
 
 ## Project Flyer & Video
+TBA
 
 ## License
+-
