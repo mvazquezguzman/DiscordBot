@@ -183,27 +183,27 @@ https://github.com/GGC-SD/DiscordBot.git
 <a href="https://github.com/GGC-SD/DiscordBot">BashBot</a> © 2024 by <a href="https://github.com/GGC-SD/DiscordBot/graphs/contributors" target="_blank">Sebastian L. Carmagnola, Najee Douglas, Etienne Laccruche, Jonathan Hummel, Anca Doloc Mihu, David Rivera, Mike Deiters</a> is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. See the [LICENSE](./documents/docs-Fall2024/License.md) file for details.
 
 # Spring 2025
-## Description
+## :page_facing_up: Description
 Discord is an instant messaging and social platform where users can communicate through text, voice chat, and video calls. Our team has been tasked with fixing bugs and implementing new features to the purging Discord bot.
 
 
-## Links
+## :link: Links
 - Link to deployed project
 - Link to other resources
 
-## Technologies
+## :computer: Technologies
 - JavaScript
 
-## Working Features
+## :briefcase: Working Features
 -
 
-## Installation Steps
+## :floppy_disk: Installation Steps
 -
 
-## How To Run
+## :runner: How To Run
 -
 
-## CtrlAltKick Team
+## :space_invader: CtrlAltKick Team
 
 **Abdou Senghore**
 1. UI/UX Designer
@@ -223,8 +223,8 @@ Discord is an instant messaging and social platform where users can communicate 
 1. Lead Programmer :computer:
 2. Testing Lead :test_tube:
 
-## Project Flyer & Video
+## :film_projector: Project Flyer & Video
 TBA
 
-## License
+## :white_check_mark: License
 -
