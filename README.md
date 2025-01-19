@@ -205,9 +205,10 @@ Discord is an instant messaging and social platform where users can communicate 
 
 ## :space_invader: CtrlAltKick Team
 
-**Abdou Senghore**
-1. UI/UX Designer
-2. Client Liaison
+**Abdou Senghore** <br>
+<img src = "documents/docs-Spring2025/Abdou.jpg" width="" height="200">
+1. UI/UX Designer :iphone:
+2. Client Liaison :speaking_head:
 
 **Huyen Pham** <br>
 <img src = "documents/docs-Spring2025/Huyen.jpg" width="" height="200">
