@@ -215,9 +215,10 @@ Discord is an instant messaging and social platform where users can communicate 
 1. Data Modeler :file_folder:
 2. Team Manager :busts_in_silhouette:
 
-**Matilda Vazquezguzman**
-1. Data Modeler
-2. Documentation Lead
+**Matilda Vazquez-Guzman**
+<img src = "documents/docs-Spring2025/Matilda.jpg" width="" height="200">
+1. Data Modeler :white_circle:
+2. Documentation Lead :page_facing_up:
 
 **Nikki Thao** <br>
 <img src = "documents/docs-Spring2025/nikki.JPG" width="" height="200">
