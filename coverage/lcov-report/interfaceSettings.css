@@ -1,0 +1,28 @@
+:root {
+    --font-family: "Helvetica Neue", Helvetica, Arial;
+    --font-size-default: 14px; /*Used for body text and h2*/
+    --font-size-small: 12px; /* Used for small text*/
+    --font-size-large: 20px; /*Used for h1*/
+  }
+  
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: var(--font-family);
+    font-size: var(--font-size-default);
+  }
+  
+  body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-default);
+  }
+  
+  h1 {
+    font-size: var(--font-size-large);
+    margin: 0;
+  }
+  
+  h2 {
+    font-size: var(--font-size-default);
+  }
