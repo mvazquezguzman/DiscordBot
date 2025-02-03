@@ -1,0 +1,12 @@
+Global CSS File: interfaceSettings.css
+    Path: DiscordBot-main/coverage/lcov-report/interfaceSettings.css
+
+Nikki Thao
+    - Implemented variables font-family, font-size-default, font-size-small, font-size-large, red, yellow, and white
+Abdou Senghore
+    -Implemented variables black, grey, medium (medColor) and light (litColor) colors for red, yellow, green, darkGreen,
+    gold, green
+Huyen Pham
+    - Implemented variables primary-color and text-color.
+Matilda Vasquez-Guzman
+    -
