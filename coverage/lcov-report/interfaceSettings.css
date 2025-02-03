@@ -3,7 +3,11 @@
     --font-size-default: 14px; /*Used for body text and h2*/
     --font-size-small: 12px; /* Used for small text*/
     --font-size-large: 20px; /*Used for h1*/
-  }
+
+    /* Colors */
+    --primary-color: #0074D9; /* Used for links */
+    --text-color: #333; /* Used for body text */
+}
   
   body, html {
     margin: 0;
@@ -11,6 +15,7 @@
     height: 100%;
     font-family: var(--font-family);
     font-size: var(--font-size-default);
+    color: var(--text-color); /* Apply text color */
   }
   
   body {
@@ -26,3 +31,12 @@
   h2 {
     font-size: var(--font-size-default);
   }
+  /* Applying primary color */
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+   }
+
+   a:hover {
+    text-decoration: underline;
+   }
