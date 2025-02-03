@@ -71,6 +71,19 @@ a:hover {
     text-decoration: underline;
 }
 
+.button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: var(--spacing-small) var(--spacing-medium);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    transition: background 0.3s;
+}
+
+.button:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
 .strong { font-weight: bold; }
 .space-top1 { padding: 10px 0 0 0; }
 .pad2y { padding: 20px 0; }
