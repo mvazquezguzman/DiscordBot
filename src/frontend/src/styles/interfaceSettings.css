@@ -1,0 +1,25 @@
+:root {
+    /*Discord Color Palette*/
+    /*4 main colors*/
+    --white: #ffff;
+    --indigo: #444DB5;
+    --grey: #313337;
+    --darkgrey: #17191A;
+
+    --darkindigo: #303680; /*button hover*/
+}
+
+body {
+    background-color: var(--grey)
+}
+
+
+/*Login Button*/
+.custom-login-btn.MuiButton-contained {
+    background-color: var(--indigo);
+    color: white;
+    width: 100%;
+}
+.custom-login-btn.MuiButton-contained:hover {
+    background-color: var(--darkindigo);
+}

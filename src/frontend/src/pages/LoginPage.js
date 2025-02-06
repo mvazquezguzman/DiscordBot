@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { Typography, TextField, Button } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../themes/Themes.js'; // Adjust the path as necessary
+import '../styles/interfaceSettings.css';
 
 const LoginPage = () => {
 
@@ -25,8 +26,7 @@ const LoginPage = () => {
                             {/* Discord Login Button */}
                             <Button
                                 variant="contained"
-                                color="secondary"
-                                className="w-100"
+                                className="custom-login-btn w-100"
                                 onClick={handleDiscordLogin}
                             >
                                 Login with Discord

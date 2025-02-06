@@ -39,9 +39,11 @@ const Navbar = () => {
         setDrawerOpen(open);
     };
 
+
+    //Navigation bar color is currently hardcoded
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" style={{ backgroundColor: '#17191A' }}>
                 <Container maxWidth="lg">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
