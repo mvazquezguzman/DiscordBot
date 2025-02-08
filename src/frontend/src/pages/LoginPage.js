@@ -23,14 +23,14 @@ const LoginPage = () => {
                         <Typography variant="h4" component="h1" align="center" className="mb-4">
                             Login
                         </Typography>
-                            {/* Discord Login Button */}
-                            <Button
-                                variant="contained"
-                                className="custom-login-btn w-100"
-                                onClick={handleDiscordLogin}
-                            >
-                                Login with Discord
-                            </Button>
+                        {/* Discord Login Button */}
+                        <Button
+                            variant="contained"
+                            className="custom-login-btn w-100"
+                            onClick={handleDiscordLogin}
+                        >
+                            Login with Discord
+                        </Button>
                     </div>
                 </div>
             </div>
