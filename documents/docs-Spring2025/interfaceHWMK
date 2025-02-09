@@ -1,8 +1,8 @@
 Global CSS File: interfaceSettings.css
-    Path: DiscordBot-main/coverage/lcov-report/interfaceSettings.css
+    Path: DiscordBot\src\frontend\src\styles\interfaceSettings.css
 
 Nikki Thao
-    - Implemented variables font-family, font-size-default, font-size-small, font-size-large, red, yellow, and white
+    - Implemented variables white, indigo, grey, darkgrey, and dark indigo on LoginPage.js
 Abdou Senghore
     -Implemented variables black, grey, medium (medColor) and light (litColor) colors for red, yellow, green, darkGreen,
     gold, green
