@@ -6,6 +6,7 @@ import { Typography, TextField, Button } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../themes/Themes.js'; // Adjust the path as necessary
 import '../styles/interfaceSettings.css';
+import { FaDiscord } from "react-icons/fa"; // Import Discord logo icon
 
 const LoginPage = () => {
 
@@ -29,6 +30,7 @@ const LoginPage = () => {
                             className="custom-login-btn w-100"
                             onClick={handleDiscordLogin}
                         >
+                             <FaDiscord size={24} className="discord-logo" /> {/* Discord Logo */}
                             Login with Discord
                         </Button>
                     </div>
