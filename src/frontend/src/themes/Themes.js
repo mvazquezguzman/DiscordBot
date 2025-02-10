@@ -80,8 +80,7 @@ const Theme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    padding: '1rem',
-                    borderRadius: '12px',
+                    padding: '1rem'
                 },
                 // Specific styles for modal Paper components
                 modalPaper: {
