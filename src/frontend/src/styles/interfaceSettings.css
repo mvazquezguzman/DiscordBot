@@ -27,3 +27,8 @@ body {
 .loginText{
     color: var(--white);
 }
+
+.discord-logo {
+    margin-right: 8px; 
+    vertical-align: middle; 
+}
