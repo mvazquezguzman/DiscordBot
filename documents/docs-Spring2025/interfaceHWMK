@@ -1,12 +1,13 @@
 Global CSS File: interfaceSettings.css
-    Path: DiscordBot\src\frontend\src\styles\interfaceSettings.css
+    Path: DiscordBot-main/coverage/lcov-report/interfaceSettings.css
 
-Nikki Thao
+ Nikki Thao
     - Implemented variables white, indigo, grey, darkgrey, and dark indigo on LoginPage.js
 Abdou Senghore
-    -Implemented variables black, grey, medium (medColor) and light (litColor) colors for red, yellow, green, darkGreen,
-    gold, green
+    -Implemented login button, fixed navbar border radius, rounded button radius, changed page fonts, adjusted text
+     colors (Themes.js, LoginPage.js, Navbar.js)
 Huyen Pham
     - Implemented variables primary-color and text-color.
 Matilda Vazquez-Guzman
-    - Implemented vaiables spacing-small, spacing-medium, spacing-large, border-radius, shadow-light.
+    - Implemented variables spacing-small, spacing-medium, spacing-large, border-radius, shadow-light.
+
