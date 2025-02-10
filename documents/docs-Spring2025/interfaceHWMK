@@ -8,6 +8,7 @@ Abdou Senghore
      colors (Themes.js, LoginPage.js, Navbar.js)
 Huyen Pham
     - Implemented variables primary-color and text-color.
+    - Added the Discord logo icon to the Login button in LoginPage.js.
 Matilda Vazquez-Guzman
     - Implemented variables spacing-small, spacing-medium, spacing-large, border-radius, shadow-light.
 
