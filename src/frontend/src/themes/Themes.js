@@ -81,6 +81,7 @@ const Theme = createTheme({
             styleOverrides: {
                 root: {
                     padding: '1rem'
+                    //navbar
                 },
                 // Specific styles for modal Paper components
                 modalPaper: {
