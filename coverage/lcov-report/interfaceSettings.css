@@ -1,5 +1,5 @@
 :root {
-    --font-family: "Helvetica Neue", Helvetica, Arial;
+    --font-family: Lato, Noto Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
     --font-size-default: 14px; /*Used for body text and h2*/
     --font-size-small: 12px; /* Used for small text*/
     --font-size-large: 20px; /*Used for h1*/
@@ -20,7 +20,18 @@
     --green: green;
     --gold: #F9CD0B;
     --litYellow: #FFF4C2;
+
+    --indigo: #444DB5;
+    --darkgrey1: #313337;
+    --darkgrey2: #17191A;
+    --darkindigo: #303680; /*button hover*/
+
+    --round-border-radius: 30px;
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+    --spacing-high: 29px;
 }
+
 
 body, html {
     margin: 0;
@@ -44,8 +55,13 @@ body {
 }
 
 h1 {
+    font: var(--font-family);
+    background-color:var(--darkgrey2);
+    padding: var(--spacing-high);
     font-size: var(--font-size-large);
     margin: 0;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 h2 {
@@ -62,35 +78,50 @@ pre {
 }
 
 /* Applying primary color */
-a {
-    color: var(--primary-color);
+a:link {
     text-decoration: none;
+}
+
+a:visited{
+    color:var(--indigo);
 }
 
 a:hover {
     text-decoration: underline;
+    color:var(--darkindigo);
 }
 
+
 .button {
-    background-color: var(--primary-color);
+    background-color: var(--indigo);
     color: white;
     padding: var(--spacing-small) var(--spacing-medium);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    border-radius: var(--round-border-radius);
     transition: background 0.3s;
+    border: none;
 }
 
 .button:hover {
-    background-color: darken(var(--primary-color), 10%);
+    background-color: var(--darkindigo);
 }
 
-.strong { font-weight: bold; }
+.strong {
+    font-weight: bold;
+    color: white;
+}
+
 .space-top1 { padding: 10px 0 0 0; }
 .pad2y { padding: 20px 0; }
-.pad1y { padding: 10px 0; }
+.pad1y { padding: 10px 0;}
 .pad2x { padding: 0 20px; }
 .pad2 { padding: 20px; }
-.pad1 { padding: 10px; }
+.pad1 {
+    padding-top: 0;
+    padding-bottom: 10px;
+}
+.wcolor {
+    color: white;
+}
 .space-left2 { padding-left:55px; }
 .space-right2 { padding-right:20px; }
 .center { text-align:center; }
@@ -110,8 +141,8 @@ a:hover {
 }
 
 .quiet {
-    color: var(--grey);
-    color: var(--black);
+    color: var(--white);
+
 }
 .quiet a { opacity: 0.7; }
 
@@ -198,6 +229,16 @@ table.coverage td span.cline-any {
 .coverage-summary td.pic { min-width: 120px !important;  }
 .coverage-summary tfoot td { }
 
+.text{
+    color: white;
+}
+
+.pct{
+    color: white;
+}
+.file{
+    color: white;
+}
 .coverage-summary .sorter {
     height: 10px;
     width: 7px;
@@ -226,11 +267,11 @@ table.coverage td span.cline-any {
 /* medium red */
 .cstat-no, .fstat-no, .cbranch-no, .cbranch-no { background:var(--medRed) }
 /* light red */
-.low, .cline-no { background:var(--litRed) }
+.low, .cline-no { color: black; background:var(--litRed) }
 /* light green */
-.high, .cline-yes { background:var(--litGreen) }
+.high, .cline-yes { color: black; background:var(--litGreen) }
 /* medium green */
-.cstat-yes { background:var(--medGreen) }
+.cstat-yes {color: black;  background:var(--medGreen) }
 /* dark green */
 .status-line.high, .high .cover-fill { background:var(--darkGreen) }
 .high .chart { border:1px solid var(--darkGreen) }
@@ -267,6 +308,10 @@ span.cline-neutral { background: #eaeaea; }
 .cover-full {
     border-right: none !important;
 }
+.text{
+    background-color:white;
+}
+
 pre.prettyprint {
     border: none !important;
     padding: 0 !important;
@@ -280,6 +325,8 @@ pre.prettyprint {
     height: auto !important;
     height: 100%;
     margin: 0 auto -48px;
+    background-color: var(--darkgrey1);
+
 }
 .footer, .push {
     height: 48px;
