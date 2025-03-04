@@ -46,14 +46,14 @@ function PurgeHistory() {
             </Typography>
 
             <div className="container">
-                <Typography variant="body1" className="text-secondary mb-4 justified-text">
+                <Typography variant="body1" class="descrip">
                     This section provides a log of admins who had initiated a purge, and what users were purged. It also
                     displays the date and time of the initiated purge.
                 </Typography>
             </div>
 
             <Box className="row justify-content-center">
-                <div className="col-md-8">
+                <div className="table table-sm">
                     {loading ? (
                         <div className="d-flex justify-content-center align-items-center" style={{height: '200px'}}>
                             <CircularProgress/>
