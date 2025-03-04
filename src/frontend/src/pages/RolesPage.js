@@ -57,7 +57,7 @@ const RolesPage = () => {
                 </Typography>
 
                 <div className="container">
-                    <Typography variant="body1" className="text-secondary mb-4 justified-text">
+                    <Typography variant="body1" class="descrip">
                         This table provides an overview of each individual users information, including their user name,
                         and user id, along with their role names (multiple roles if applicable). Use the headers of the
                         table which are toggleable to sort users accordingly. To refresh the table toggle the refresh button
@@ -66,7 +66,7 @@ const RolesPage = () => {
                 </div>
 
                 <div className="row justify-content-center">
-                    <div className="col-md-10">
+                    <div className="table table-sm">
                         <Box sx={{height: 400, width: '100%'}}>
                             {userInfo.length > 0 ? (
                                 <DataGrid
@@ -97,7 +97,7 @@ const RolesPage = () => {
                 </Typography>
 
                 <div className="container">
-                    <Typography variant="body1" className="text-secondary mb-4 justified-text">
+                    <Typography variant="body1" class="descrip">
                         This page provides an overview of the roles and timer for users within the application. You can
                         review and manage assigned role timers and default timers using the table below, which displays
                        the role id, role names, and role timer.
