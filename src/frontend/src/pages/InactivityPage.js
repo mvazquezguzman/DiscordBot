@@ -48,7 +48,7 @@ const InactivityPage = () => {
                 </Typography>
 
                 <div className="container">
-                    <Typography variant="body1" className="text-secondary mb-4 justified-text">
+                    <Typography variant="body1" class="descrip">
                         This table provides an overview of inactive users within the application. Use the headers of the
                         table which are toggleable to quickly find specific users. To refresh the table toggle
                         the refresh button below the table.
@@ -56,7 +56,7 @@ const InactivityPage = () => {
                 </div>
 
                 <div className="row justify-content-center">
-                    <div className="col-md-8">
+                    <div className="table table-sm">
                         {inactiveUsers.length > 0 ? (
                             <Box sx={{height: 400, marginBottom: '1rem'}}>
                                 <DataGrid
