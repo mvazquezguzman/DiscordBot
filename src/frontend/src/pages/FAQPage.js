@@ -37,7 +37,7 @@ const FAQPage = () => {
                                         <div className="card h-100">
                                             <div className="card-body text-center text-dark">
                                                 {/* Bold and centered command */}
-                                                <Typography variant="h6" className="font-weight-bold mb-2 text-dark">
+                                                <Typography variant="h6" class='FAQcolor'>
                                                     {item.command}
                                                 </Typography>
                                                 {/* Centered and justified description */}
@@ -65,7 +65,7 @@ const FAQPage = () => {
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
-                                <Typography variant="body1">
+                                <Typography variant="body1" class='qa'>
                                     {item.answer}
                                 </Typography>
                             </AccordionDetails>
