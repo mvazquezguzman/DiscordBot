@@ -159,14 +159,14 @@ const PurgePage = () => {
                 </Typography>
 
                 <div className="container">
-                    <Typography variant="body1" className="text-secondary mb-4 justified-text">
+                    <Typography variant="body1" class="descrip">
                         This section provides an overview of the inactive users in the server when toggling the Preview Inactive Users
                         button. The Initiate Purge button will trigger an alert confirming the purge prior to initiation.
                     </Typography>
                 </div>
 
                 <div className="row justify-content-center">
-                    <div className="col-md-8">
+                    <div className="table table-sm">
                         {error && (
                             <Alert
                                 severity={error.includes('Successfully') ? 'success' : 'error'}
@@ -180,6 +180,7 @@ const PurgePage = () => {
                         <div className="d-flex justify-content-center mb-3">
                             <Button
                                 variant="contained"
+                                className="custom-login-btn w-100"
                                 onClick={fetchInactiveUsers}
                                 disabled={loading || purgeInProgress}
                             >
