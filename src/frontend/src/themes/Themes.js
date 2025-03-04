@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 const Theme = createTheme({
+
     palette: {
         primary: {
             main: '#181C14',
@@ -14,7 +15,7 @@ const Theme = createTheme({
         h2: {
             fontWeight: 500,
             textAlign: 'center',
-            color: '#3C3D37',
+            color: 'white',
             fontFamily: 'Lato, Noto Sans, Helvetica Neue, Helvetica, Arial, sans-serif;',
         },
         h4: {
@@ -25,6 +26,7 @@ const Theme = createTheme({
         },
         h5: {
             fontStyle: 'italic',
+            color: '#444DB5'
         },
         h6: {
             fontFamily: 'Lato, Noto Sans, Helvetica Neue, Helvetica, Arial, sans-serif;',
@@ -36,15 +38,16 @@ const Theme = createTheme({
             letterSpacing: '0.1rem',
         },
         h7 : {
-            fontWeight: 'bold',
+            fontWeight: 'bold'
 
         },
         body1: {
             lineHeight: 1.5,
+            color: "#444DB5",
             textAlign: 'justify',
             margin: '0 auto',
-            maxWidth: '80%',
-        },
+            maxWidth: '80%'
+        }
 
     },
 
@@ -172,7 +175,7 @@ const Theme = createTheme({
             styleOverrides: {
                 root: {
                     '&.accordion-question': {
-                        fontSize: '1.5rem',
+                        fontSize: '1.5rem'
                     },
                     '&.sidebar-title': {
                         color: 'black',
