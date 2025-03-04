@@ -14,7 +14,7 @@ const Home = () => {
                     <Typography variant="h2" gutterBottom>
                         Welcome
                     </Typography>
-                    <Typography variant="h5" className="text-secondary mb-4">
+                    <Typography variant="h5" class="descrip">
                         Your ultimate solution for managing your automated Discord server activity
                     </Typography>
                 </div>
@@ -23,18 +23,18 @@ const Home = () => {
                 <div className="row justify-content-center">
                     <div className="col-md-8 col-lg-6">
                         <Paper elevation={5} className="p-4 rounded-3">
-                            <Typography variant="h4" align="center" gutterBottom>
+                            <Typography variant="h4" class='titleCol' align="center" gutterBottom>
                                 About
                             </Typography>
                             <Divider className="my-3" />
 
-                            <Typography variant="body1" className="text-justify mb-3">
+                            <Typography variant="body1" class="descrip2">
                                 This automated Discord bot is designed to help manage and maintain your Discord server with ease. It includes features such as user activity tracking, inactivity tracking, automated responses, purging, blacklisting, user management and bot setting management.
                             </Typography>
-                            <Typography variant="body1" className="text-justify mb-3">
+                            <Typography variant="body1" class="descrip2">
                                 Our goal is to enhance the Discord experience by automating repetitive tasks and improving community engagement.
                             </Typography>
-                            <Typography variant="body1" className="text-justify mb-3">
+                            <Typography variant="body1" class="descrip2">
                                 If you have any questions or suggestions, feel free check out our FAQ page.
                             </Typography>
 
