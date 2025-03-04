@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Typography, TextField, Button } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../themes/Themes.js'; // Adjust the path as necessary
 import '../styles/interfaceSettings.css';
@@ -30,7 +29,7 @@ const LoginPage = () => {
                             className="custom-login-btn w-100"
                             onClick={handleDiscordLogin}
                         >
-                             <FaDiscord size={24} className="discord-logo" /> {/* Discord Logo */}
+                            <FaDiscord size={24} className="discord-logo" /> {/* Discord Logo */}
                             Login with Discord
                         </Button>
                     </div>
