@@ -39,27 +39,6 @@ const UserActivityPage = () => {
             ),
         },
         {
-            field: 'lastReaction',
-            headerName: 'Last Reaction',
-            width: 200,
-            renderCell: (params) => {
-                const { messageContent, emoji, timestamp } = params.value || {};
-                const dateValue = new Date(timestamp);
-
-                if (!messageContent || !emoji) {
-                    return <span>No Activity</span>;
-                }
-
-                return (
-                    <div className="centered">
-                        {emoji} {messageContent}
-                        <br />
-                        <span>{isNaN(dateValue.getTime()) ? "Invalid date" : dateValue.toLocaleString()}</span>
-                    </div>
-                );
-            },
-        },
-        {
             field: 'lastVoiceActivity',
             headerName: 'Last Voice Activity',
             width: 200,
