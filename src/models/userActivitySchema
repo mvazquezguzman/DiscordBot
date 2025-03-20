@@ -25,21 +25,6 @@ const userActivitySchema = new mongoose.Schema({
         type: Date,
         default: null
     },
-     lastReaction: {
-        userName: {
-             type: String,
-             default: ''
-        },
-        messageContent: {
-            type: String
-        },
-            emoji: {
-                type: String
-            },
-            timestamp: {
-                type: Date
-            }
-     },
     lastActive: {
         type: Date,
         required: true
