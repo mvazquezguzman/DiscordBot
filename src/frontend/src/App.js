@@ -38,6 +38,7 @@ function App() {
                     <Route path="/login-success" element={<LoginSuccessPage />} />
 
                     {/* Wrap all routes with ProtectedRoute */}
+                     {/* To test without login, remove ProtectedRoute */}
                     <Route
                         path="/*"
                         element={
