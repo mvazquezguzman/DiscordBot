@@ -180,12 +180,13 @@ const PurgePage = () => {
                         <div className="d-flex justify-content-center mb-3">
                             <Button
                                 variant="contained"
-                                className="custom-login-btn w-100"
+                                className="custom-refresh-btn"
                                 onClick={fetchInactiveUsers}
                                 disabled={loading || purgeInProgress}
                             >
                                 {loading ? 'Loading...' : 'Preview Inactive Users'}
                             </Button>
+
                         </div>
 
                         {inactiveUsers.length > 0 ? (
