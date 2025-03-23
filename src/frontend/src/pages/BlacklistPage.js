@@ -182,7 +182,7 @@ const BlacklistPage = () => {
                         <div className="d-flex justify-content-center mt-2">
                             <Button
                                 variant="contained"
-                                className="ms-2"
+                                className="custom-refresh-btn"
                                 onClick={() => {
                                     console.log("Remove button clicked");
                                     handleRemoveSelected();
@@ -192,14 +192,14 @@ const BlacklistPage = () => {
                             </Button>
                             <Button
                                 variant="contained"
-                                className="ms-2"
+                                className="custom-refresh-btn"
                                 onClick={fetchBlacklistedUsers}
                             >
                                 Refresh
                             </Button>
                             <Button
                                 variant="contained"
-                                className="ms-2"
+                                className="custom-refresh-btn"
                                 onClick={() => setModalOpen(true)}
                             >
                                 Add Users
