@@ -83,7 +83,11 @@ const RolesPage = () => {
                             )}
                         </Box>
                         <div className="d-flex justify-content-center mt-3">
-                            <Button variant="contained" onClick={fetchUserInfo}>
+                            <Button
+                                variant="contained"
+                                className="custom-refresh-btn"
+                                onClick={fetchUserInfo}
+                                >
                                 Refresh
                             </Button>
                         </div>
