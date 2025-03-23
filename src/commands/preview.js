@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { PermissionFlagsBits } = require("discord.js");
 const { getInactiveUsers } = require("../functions/inactivity");
 const { blackListDB } = require("../models/blacklistSchema");
@@ -89,7 +90,7 @@ module.exports = {
                         .setStyle(ButtonStyle.Primary) //Edit list
                 );   
 
-            return interaction.editReply({ embeds: [embed] });
+            return interaction.editReply({ embeds: [embed], components: [row] });
         } catch (error) {
             console.error('Preview error:', error);
             return interaction.editReply('An error occurred while fetching the preview.');
