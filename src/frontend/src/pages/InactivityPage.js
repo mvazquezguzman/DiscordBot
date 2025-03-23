@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { Typography, Box, Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {FaDiscord} from "react-icons/fa";
 
 const InactivityPage = () => {
     const [inactiveUsers, setInactiveUsers] = useState([]);
@@ -73,7 +74,11 @@ const InactivityPage = () => {
                             </Typography>
                         )}
                         <div className="d-flex justify-content-center mt-2">
-                            <Button variant="contained" onClick={fetchInactiveUsers}>
+                            <Button
+                                variant="contained"
+                                className="custom-refresh-btn"
+                                onClick={fetchInactiveUsers}
+                            >
                                 Refresh
                             </Button>
                         </div>
