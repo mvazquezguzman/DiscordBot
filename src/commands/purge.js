@@ -2,20 +2,22 @@ const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, EmbedBuilder } = r
 const { ButtonStyle, PermissionFlagsBits } = require("discord.js");
 const { getInactiveUsers } = require("../functions/inactivity");
 const { PurgeHistory } = require("../models/purgeHistorySchema");
-const { blackListDB } = require("../models/blacklistSchema"); 
+const { blackListDB } = require("../models/blacklistSchema");
+const { removeUserFromDatabases } = require("../functions/userDatabaseManager");
 
 async function executePurge(guild, executorId, executorUsername) {
     const inactiveUsers = await getInactiveUsers();
     const purgedUsers = [];
+    const cleanupResults = [];
 
     //Get blacklist for exclusions
     const blacklistDoc = await blackListDB.findOne();
     const blacklistedUserIds = blacklistDoc ? blacklistDoc.blackListedUsers.map(user => user.userId) : [];
 
-    for (const [userId, userData] of inactiveUsers.entries()) { // Iterate over the Map
+    for (const [userId, userData] of inactiveUsers.entries()) {
         //Skip user if they are on the blacklist
         if (blacklistedUserIds.includes(userId)) {
-            console.log(`Skipping blacklisterd user ${userId}`);
+            console.log(`Skipping blacklisted user ${userId}`);
             continue;
         }
         
@@ -23,8 +25,17 @@ async function executePurge(guild, executorId, executorUsername) {
 
         if (member) {
             try {
-                // kicks members who are in the inactive list and updates the purged count
+                // Kick the member
                 await member.kick("Inactive user purge");
+                
+                // Clean up databases
+                const cleanupResult = await removeUserFromDatabases(userId, userData.userName);
+                cleanupResults.push({
+                    userId,
+                    username: userData.userName,
+                    ...cleanupResult
+                });
+
                 purgedUsers.push({
                     userId: userId,
                     username: member.user.username
@@ -43,6 +54,7 @@ async function executePurge(guild, executorId, executorUsername) {
             executionDate: new Date(),
             purgedCount: purgedUsers.length,
             purgedUsers: purgedUsers,
+            databaseCleanupResults: cleanupResults
         });
     } catch (error) {
         console.error(`Error logging purge to database: ${error}`);
@@ -50,7 +62,8 @@ async function executePurge(guild, executorId, executorUsername) {
 
     return {
         purgedCount: purgedUsers.length,
-        purgedUsers: purgedUsers
+        purgedUsers: purgedUsers,
+        cleanupResults: cleanupResults
     };
 }
 
@@ -76,4 +89,4 @@ module.exports = {
         }
     },
     executePurge
-}
+};

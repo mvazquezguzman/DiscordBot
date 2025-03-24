@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
 const RoleTimer = require("../models/roleTimeSchema");
 const { getInactiveUsers } = require("../functions/inactivity");
+const { removeUserFromDatabases } = require("../functions/userDatabaseManager");
 
 const AUTO_PURGE_INTERVAL = 10 * 60 * 1000; // 10 minutes per check
 
@@ -13,6 +14,7 @@ async function startAutoPurge(guild) {
 
       const inactiveUsers = await getInactiveUsers(); // Get all inactive users from the database
       const purgeList = [];
+      const cleanupResults = [];
 
       for (const [userId, userInfo] of inactiveUsers.entries()) {
         const member = guild.members.cache.get(userId);
@@ -27,19 +29,32 @@ async function startAutoPurge(guild) {
 
         const inactivityDuration = Date.now() - userInfo.lastMessageDate;
         if (inactivityDuration > roleTimeLimit) {
-          purgeList.push(member);
+          try {
+            await member.kick("Auto-purge: Inactive user");
+            
+            // Clean up databases
+            const cleanupResult = await removeUserFromDatabases(userId, userInfo.userName);
+            cleanupResults.push({
+              userId,
+              username: userInfo.userName,
+              ...cleanupResult
+            });
+
+            purgeList.push({
+              userId: userId,
+              username: member.user.username
+            });
+          } catch (error) {
+            console.error(`Error auto-purging user ${userId}: ${error}`);
+          }
         }
       }
 
       if (purgeList.length > 0) {
-        for (const member of purgeList) {
-          await member.kick("Automated inactivity purge"); // Kick each member in the purge list
-        }
-
-        console.log(`Purged ${purgeList.length} users: ${purgeList.map(m => m.user.tag).join(", ")}`);
-      } else {
-        console.log("No users to purge.");
+        console.log(`Auto-purged ${purgeList.length} users:`, purgeList);
+        console.log('Database cleanup results:', cleanupResults);
       }
+
     } catch (error) {
       console.error("Error during auto-purge process:", error);
     }
