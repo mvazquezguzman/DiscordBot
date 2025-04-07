@@ -229,4 +229,4 @@ Discord is an instant messaging and social platform where users can communicate 
 TBA
 
 ## :white_check_mark: License
--
+<a href="https://github.com/GGC-SD/DiscordBot">CtrlAltKick Bot</a> © 2025 by <a href="https://github.com/GGC-SD/DiscordBot/graphs/contributors" target="_blank">Abdou Senghore, Huyen Pham, Matilda Vasquez-Guzman, Nikki Thao, Anca Doloc Mihu, David Rivera, Mike Deiters</a> is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. See the [LICENSE](./documents/docs-Spring2025/License.md) file for details.
