@@ -186,25 +186,70 @@ https://github.com/GGC-SD/DiscordBot.git
 ## :page_facing_up: Description
 Discord is an instant messaging and social platform where users can communicate through text, voice chat, and video calls. Our team has been tasked with fixing bugs and implementing new features to the purging Discord bot.
 
+As part of our Software Development II course with Dr. Anca Doloc-Mihu, we were tasked to work on the Discord Inactivity Purge Bot. This bot helps server owners maintain active and organized Discord communities by automatically removing users who have been inactive for a specified period. Key features include purge previews, inactivity warnings, and a customizable blacklist. The bot can be run manually or on a schedule. Through this project, we gained hands-on experience with full-stack development using Node.js, MongoDB, and React, along with HTML and CSS for building and styling the user interface.
 
 ## :link: Links
-- Link to deployed project
-- Link to other resources
+- [Repository Link](https://github.com/GGC-SD/DiscordBot.git)
+- [Documentation Link](documents/docs-Spring2025/)
+- [License Link](documents/docs-Spring2025/License.md)
 
 ## :computer: Technologies
 - JavaScript
+- [Node.js](https://nodejs.org/en/)
 
-## :briefcase: Working Features
--
+**Spring 2025 Update**
+- [Jest] (https://jestjs.io/)
+
+## :briefcase: Working Features (Spring 2025)
+1. **Inactivity Warning System**
+    - Automatically sends DM or private message warnings to users approaching inactivity threshold
+    - Configurable warning periods through dashboard
+2. **Purge Preview**
+    - Displays list of users scheduled for purge
+    - Ability to exempt individual users directly from preview
+3. **Role-based Timer**
+    - Custom inactivity durations for different roles
+    - Flexible timer configuration
+4. **Database Cleanup**
+    - Removed the lastReaction field from all user records
+    - Implemented cleanup script for records
+5. **UI/UX Improvements**
+    - Dark theme matching Discord's aesthetic
+    - Mobile-responsive dashboard layout
+    - Improved navigation and accessibility
+6. **Testing Infrastructure**
+    - Unit tests for core functionality
+    - Integration tests for database operations
 
 ## :floppy_disk: Installation Steps
--
+- Follow Fall 2024 Installations Steps section
+
+1. Configure Environment Variables:
+   Create a `.env` file in the src folder with the following required fields:
+   ```
+   TOKEN=your_discord_bot_token
+   databaseToken=your_mongodb_token
+   GUILD_ID=your_server_id
+   CLIENT_ID=your_oauth2_client_id
+   CLIENT_SECRET=your_oauth2_client_secret
+   REDIRECT_URI=your_oauth2_redirect_uri
+   ```
 
 ## :runner: How To Run
--
+1. From the src directory, run:
+   ```bash
+   npm start
+   ```
+   This will automatically start:
+   - The Discord bot
+   - The Backend server
+   - React frontend dashboard
+
+2. Access the dashboard through your web browser
+   - Login with Discord admin credentials
+   - Navigate through the updated menu system
 
 ## :space_invader: CtrlAltKick Team
-
 **Abdou Senghore** <br>
 <img src = "documents/docs-Spring2025/Abdou.jpg" width="" height="200">
 1. UI/UX Designer :iphone:
@@ -229,4 +274,4 @@ Discord is an instant messaging and social platform where users can communicate 
 TBA
 
 ## :white_check_mark: License
--
+<a href="https://github.com/GGC-SD/DiscordBot">CtrlAltKick Bot</a> © 2025 by <a href="https://github.com/GGC-SD/DiscordBot/graphs/contributors" target="_blank">Abdou Senghore, Huyen Pham, Matilda Vasquez-Guzman, Nikki Thao, Anca Doloc Mihu, David Rivera, Mike Deiters</a> is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. See the [LICENSE](./documents/docs-Spring2025/License.md) file for details.
