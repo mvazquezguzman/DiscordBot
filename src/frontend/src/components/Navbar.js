@@ -110,11 +110,11 @@ const Navbar = () => {
 
             {/* Sidebar (Drawer) */}
             <Drawer
-                anchor="left"
+                anchor="top"
                 open={drawerOpen}
                 onClose={toggleDrawer(false)}
                 PaperProps={{
-                    sx: { top: '98px' } // Adjust start of sidebar based AppBar height
+                    sx: { top: '98px' , left: '40%', right: '20%'} // Adjust start of sidebar based AppBar height
                 }}
             >
                 <div
