@@ -318,3 +318,7 @@ app.post('/purge', async (req, res) => {
 
 // Start the bot
 client.login(process.env.TOKEN); // Make sure BOT_TOKEN is set in your .env
+//Start the automatic purge scheduler to run purges at configured intervals
+const { startAutoPurge } = require('../functions/purgeScheduler');
+startAutoPurge(client);
+
