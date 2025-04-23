@@ -122,11 +122,12 @@ client.on('guildMemberUpdate', async (oldMember, newMember) => {
 });
 
 client.on('interactionCreate', async (interaction) => {
+    const command = client.commands.get('purge');
+
     if (interaction.isButton()) {
-        const command = client.commands.get('purge');
         if (command?.buttonInteractionHandler) {
             try {
-                await command.buttonInteractionHandler(client, interaction);
+                await command.buttonInteractionHandler(interaction);
             } catch (error) {
                 console.error('Error handling purge button interaction:', error);
                 if (!interaction.replied) {
@@ -135,7 +136,21 @@ client.on('interactionCreate', async (interaction) => {
             }
         }
     }
+    
+    if (interaction.isStringSelectMenu()) {
+        if (command?.selectMenuInteraction) {
+            try {
+                await command.selectMenuInteraction(interaction);
+            } catch (error) {
+                console.error('Error handling purge select menu interaction:', error);
+                if (!interaction.replied) {
+                    await interaction.reply({ content: 'There was an error processing your action.', ephemeral: true });
+                }
+            }
+        }
+    }
 });
+
 
 
 // Debug log for the bot token for debugging

@@ -1,24 +1,26 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require('discord.js');
 const { getInactiveUsers } = require("../functions/inactivity");
 const { PurgeHistory } = require("../models/purgeHistorySchema");
 const { blackListDB } = require("../models/blacklistSchema");
 
+const purgeSessions = new Map();
+
 // Preview
-async function getPurgePreview(guild) {
+async function getPurgePreview(guild, userIds = []) {
     const inactiveUsers = await getInactiveUsers();
     let userList = '';
     let userCount = 0;
 
-    const blacklistDoc = await blackListDB.findOne();
-    const blacklistedUserIds = blacklistDoc ? blacklistDoc.blackListedUsers.map(user => user.userId) : [];
-
-    for (const [userId, userData] of inactiveUsers.entries()) {
-        if (blacklistedUserIds.includes(userId)) continue;
-
+    for (const userId of userIds) {
+        const userData = inactiveUsers.get(userId);
         const member = await guild.members.fetch(userId).catch(() => null);
+
         if (member) {
-            const lastActiveDate = new Date(userData.lastMessageDate).toLocaleString();
-            userList += `<@${userId}> - Last active: ${lastActiveDate}\n`;
+            const lastActive = userData && userData.lastMessageDate
+                ? new Date(userData.lastMessageDate).toLocaleString()
+                : "unknown";
+
+            userList += `<@${userId}> - Last active: ${lastActive}\n`;
             userCount++;
         }
     }
@@ -27,25 +29,13 @@ async function getPurgePreview(guild) {
 }
 
 // Purge
-async function executePurge(guild, executorId, executorUsername) {
-    const inactiveUsers = await getInactiveUsers();
+async function executePurge(guild, executorId, executorUsername, userIds) {
     const purgedUsers = [];
 
-    const blacklistDoc = await blackListDB.findOne();
-    const blacklistedUserIds = blacklistDoc ? blacklistDoc.blackListedUsers.map(user => user.userId) : [];
-
-    for (const [userId, userData] of inactiveUsers.entries()) { // Iterate over the Map
-        //Skip user if they are on the blacklist
-        if (blacklistedUserIds.includes(userId)) {
-            console.log(`Skipping blacklisterd user ${userId}`);
-            continue;
-        }
-
+    for (const userId of userIds) {
         const member = await guild.members.fetch(userId).catch(() => null);
-
         if (member) {
             try {
-                // kicks members who are in the inactive list and updates the purge count
                 await member.kick("Inactive user purge");
                 purgedUsers.push({
                     userId,
@@ -82,11 +72,25 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         try {
-            const { userList, userCount } = await getPurgePreview(interaction.guild);
+            const inactiveUsers = await getInactiveUsers();
+            const blacklistDoc = await blackListDB.findOne();
+            const blacklistedUserIds = blacklistDoc ? blacklistDoc.blackListedUsers.map(user => user.userId) : [];
 
-            if (userCount === 0) {
+            const userIds = [];
+
+            for (const [userId] of inactiveUsers.entries()) {
+                if (!blacklistedUserIds.includes(userId)) {
+                    userIds.push(userId);
+                }
+            }
+
+            if (userIds.length === 0) {
                 return interaction.editReply('No users are currently eligible to be purged.');
             }
+
+            purgeSessions.set(interaction.user.id, { userIds });
+
+            const { userList, userCount } = await getPurgePreview(interaction.guild, userIds);
 
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
@@ -100,28 +104,120 @@ module.exports = {
             );
 
             return interaction.editReply({ embeds: [embed], components: [row] });
+
         } catch (err) {
             console.error('Error preparing purge preview:', err);
             return interaction.editReply('An error occurred while preparing the purge preview.');
         }
     },
 
-    async buttonInteractionHandler(client, interaction) {
+    async buttonInteractionHandler(interaction) {
         if (!interaction.isButton()) return;
 
         const customId = interaction.customId;
 
+        if (customId === 'edit') {
+            const session = purgeSessions.get(interaction.user.id);
+            if (!session) {
+                return interaction.reply({ content: 'No purge session found.', ephemeral: true });
+            }
+
+            const userIds = session.userIds;
+
+            const options = [];
+
+            for (const userId of userIds) {
+                const member = await interaction.guild.members.fetch(userId).catch(() => null);
+                if (member) {
+                    options.push({
+                        label: `${member.user.username}#${member.user.discriminator}`,
+                        value: userId,
+                    });
+                }
+            }
+
+            const selectMenu = new ActionRowBuilder().addComponents(
+                new StringSelectMenuBuilder()
+                    .setCustomId('removeFromPurge')
+                    .setPlaceholder('Select users to exclude')
+                    .setMinValues(1)
+                    .setMaxValues(options.length)
+                    .addOptions(options)
+            );
+
+            await interaction.reply({
+                content: 'Select users you want to remove from the purge:',
+                components: [selectMenu],
+                ephemeral: true
+            });
+
+            return;
+        }
+
+        await interaction.deferUpdate();
+
         if (customId === 'confirm') {
-            const { purgedCount } = await executePurge(interaction.guild, interaction.user.id, interaction.user.username);
-            return interaction.reply({ content: `Purge complete. Kicked ${purgedCount} users.`, ephemeral: true });
+            const session = purgeSessions.get(interaction.user.id);
+            if (!session) {
+                return interaction.editReply({ content: 'No purge session found.', embeds: [], components: [] });
+            }
+
+            const { purgedCount } = await executePurge(interaction.guild, interaction.user.id, interaction.user.username, session.userIds);
+
+            purgeSessions.delete(interaction.user.id);
+
+            return interaction.editReply({ content: `Purge complete. Kicked ${purgedCount} users.`, embeds: [], components: [] });
         }
 
         if (customId === 'abort') {
-            return interaction.reply({ content: 'Purge aborted.', ephemeral: true });
+            purgeSessions.delete(interaction.user.id);
+            return interaction.editReply({ content: 'Purge aborted.', embeds: [], components: [] });
         }
+    },
 
-        if (customId === 'edit') {
-            return interaction.reply({ content: 'Edit functionality coming soon.', ephemeral: true });
+    async selectMenuInteraction(interaction) {
+        if (!interaction.isStringSelectMenu()) return;
+    
+        await interaction.deferReply({ ephemeral: true });
+    
+        const selectedUserIds = interaction.values;
+        const session = purgeSessions.get(interaction.user.id);
+    
+        if (!session) {
+            return interaction.editReply({ content: 'No purge session found.' });
         }
-    }
+    
+        session.userIds = session.userIds.filter(id => !selectedUserIds.includes(id));
+    
+        if (session.userIds.length === 0) {
+            purgeSessions.delete(interaction.user.id);
+            return interaction.editReply({ content: 'No users are currently eligible to be purged after exclusions.' });
+        }
+    
+        const { userList, userCount } = await getPurgePreview(interaction.guild, session.userIds);
+    
+        if (userCount === 0) {
+            purgeSessions.delete(interaction.user.id);
+            return interaction.editReply({ content: 'No users are currently eligible to be purged after exclusions.' });
+        }
+    
+        const embed = new EmbedBuilder()
+            .setColor(0xFF0000)
+            .setTitle('Updated Purge Preview')
+            .setDescription(`The following ${userCount} users are still eligible for purging after exclusions:\n\n${userList}\n\nWould you like to proceed?`);
+    
+        const row = new ActionRowBuilder().addComponents(
+            new ButtonBuilder().setCustomId('confirm').setLabel('Confirm').setStyle(ButtonStyle.Success),
+            new ButtonBuilder().setCustomId('abort').setLabel('Abort').setStyle(ButtonStyle.Danger),
+            new ButtonBuilder().setCustomId('edit').setLabel('Edit').setStyle(ButtonStyle.Primary)
+        );
+    
+        await interaction.editReply({ 
+            content: 'Here is the updated purge list after exclusions:',
+            embeds: [embed],
+            components: [row],
+        });
+    },
+
+    executePurge
 };
