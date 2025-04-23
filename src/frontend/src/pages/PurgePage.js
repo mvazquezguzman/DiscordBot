@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Navbar from "../components/Navbar";
 import PurgeHistory from "../components/PurgeHistory";
 import { useState } from 'react';
@@ -41,27 +41,15 @@ const PurgePage = () => {
             field: 'formattedLastActive',
             headerName: 'Last Active',
             flex: 1,
-            valueGetter: (params) => {
-                const date = params.row?.lastMessageDate;
-                if (!date) return '';
-                return new Date(date).toLocaleDateString();
-            }
-        },
-        {
-            field: 'daysInactive',
-            headerName: 'Days Inactive',
-            flex: 1,
-            valueGetter: (params) => {
-                const date = params.row?.lastMessageDate;
-                if (!date) return '';
-                const lastActive = new Date(date);
-                const now = new Date();
-                return Math.floor((now.getTime() - lastActive.getTime()) / (1000 * 60 * 60 * 24));
+            renderCell: (params) => {
+                const dateValue = new Date(params.value);
+                return isNaN(dateValue.getTime()) ? "Invalid date" : dateValue.toLocaleString();
             }
         }
     ];
 
     const fetchInactiveUsers = async () => {
+
         setLoading(true);
         setError(null);
         try {
@@ -153,6 +141,7 @@ const PurgePage = () => {
     return (
         <>
             <Navbar />
+
             <div className="container my-5">
                 <Typography variant="h4" align="center" gutterBottom>
                     User Purge Management
@@ -177,11 +166,12 @@ const PurgePage = () => {
                             </Alert>
                         )}
 
+
                         <div className="d-flex justify-content-center mb-3">
                             <Button
                                 variant="contained"
                                 className="custom-refresh-btn"
-                                onClick={fetchInactiveUsers}
+                                onClick= {fetchInactiveUsers}
                                 disabled={loading || purgeInProgress}
                             >
                                 {loading ? 'Loading...' : 'Preview Inactive Users'}
