@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { PermissionFlagsBits } = require("discord.js");
 const { getInactiveUsers } = require("../functions/inactivity");
 const { blackListDB } = require("../models/blacklistSchema");
@@ -72,25 +71,7 @@ module.exports = {
                 .setColor(0xFF0000)
                 .setTitle('Purge Preview')
                 .setDescription(`The following ${userCount} users will be kicked in the next purge:\n\n` + userList)
-
-            // Create the action row with buttons
-            const row = new ActionRowBuilder()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('confirm')
-                        .setLabel('Confirm')
-                        .setStyle(ButtonStyle.Success), //Confirm purge
-                    new ButtonBuilder()
-                        .setCustomId('abort')
-                        .setLabel('Abort')
-                        .setStyle(ButtonStyle.Danger), //Abort purge
-                    new ButtonBuilder()
-                        .setCustomId('edit')
-                        .setLabel('Edit')
-                        .setStyle(ButtonStyle.Primary) //Edit list
-                );   
-
-            return interaction.editReply({ embeds: [embed], components: [row] });
+            return interaction.editReply({ embeds: [embed] });
         } catch (error) {
             console.error('Preview error:', error);
             return interaction.editReply('An error occurred while fetching the preview.');
