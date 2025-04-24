@@ -7,5 +7,7 @@
   { "command": "/roletimer (role name) (amount of time in days)", "description": "Sets the grace period for a certain role." },
   { "command": "/setpurge (time in days)", "description": "Sets the specified automated purge window (in days)." },
   { "command": "/timer (role) (time)", "description": "Sets a time window (in days) for a role before considering them inactive." },
-  { "command": "/show inactivity", "description": "Shows members who are considered 'inactive' that are eligible to be purged." }
+  { "command": "/show inactivity", "description": "Shows members who are considered 'inactive' that are eligible to be purged." },
+  { "command": "/warn", "description": "Warns all members that are eligible to be purged through a direct message." },
+  { "command": "/preview", "description": "Allows you to view users that are eligible to be purged, and edit/interact with the list." }
 ]
