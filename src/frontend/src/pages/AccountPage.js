@@ -96,7 +96,7 @@ const AccountPage = () => {
                             <Box display="flex" alignItems="center" mb={3}>
 
                                 <Avatar sx={{ mr: 3, width: 56, height: 56 }}>
-                                    {/* Add user's profile picture here */}
+                                    {/* Add user's profile picture here, if possible but for now leave it */}
                                 </Avatar>
 
                                 <Box>
