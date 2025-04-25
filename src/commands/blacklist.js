@@ -6,84 +6,120 @@ const blacklistRemove = require("../functions/blacklistRemove");
 const { channelMention, roleMention, userMention, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
-	//Example of subcommands. Only accepts a user value and the command will not execute without a user.
-	//option allows the user to add the users name
-	//add/remove are sub commands. The option of user is required for both commands
 	data: new SlashCommandBuilder()
 		.setName("blacklist")
-		.setDescription("Adds or Removes people from the blacklist.")
-		.addSubcommand((subcommad) => 
-			subcommad.setName("add")
-			.setDescription("Adds User")
+		.setDescription("Adds or Removes people or roles from the blacklist.")
+		.addSubcommand((subcommand) => 
+			subcommand.setName("add")
+			.setDescription("Adds User or Role")
 			.addUserOption((option) =>
 				option.setName("user")
-				.setDescription("User you are adding")
-				.setRequired(true)
+					.setDescription("User you are adding")
+					.setRequired(false)
+			)
+			.addRoleOption((option) =>
+				option.setName("role")
+					.setDescription("Role you are adding")
+					.setRequired(false)
 			)
 		)
-		.addSubcommand((subcommad) =>
-			subcommad.setName("remove")
-			.setDescription("Removes User")
+		.addSubcommand((subcommand) =>
+			subcommand.setName("remove")
+			.setDescription("Removes User or Role")
 			.addUserOption((option) =>
 				option.setName("user")
-				.setDescription("User you are removing")
-				.setRequired(true)
+					.setDescription("User you are removing")
+					.setRequired(false)
+			)
+			.addRoleOption((option) =>
+				option.setName("role")
+					.setDescription("Role you are removing")
+					.setRequired(false)
 			)
 		)
-		.addSubcommand((subcommad) =>
-			subcommad.setName("show")
-			.setDescription("Shows the current blacklisted user/roles.")
+		.addSubcommand((subcommand) =>
+			subcommand.setName("show")
+			.setDescription("Shows the current blacklisted users and roles.")
 		)
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
-
 
 	async execute(interaction) {
 		const subcommand = interaction.options.getSubcommand();
 
 		switch (subcommand) {
-			case "add":
-				const userToAdd = interaction.options.getUser("user");
-				const mentionedUser = userMention(userToAdd.id);
-				const userName = userToAdd.username; // Get the username
-
-				// Pass both user ID and username to the insert function
-				await blacklistAdd.insertBlacklistDB(userToAdd.id, userName);
-
-				const addEmbed = new EmbedBuilder()
-					.setDescription(`Added ${mentionedUser.toString()} to the blacklist.`)
-					.setColor(0x2ECC71);
-				await interaction.reply({
-					embeds: [addEmbed],
-					ephemeral: false
+			//here
+			case "add": {
+				const user = interaction.options.getUser("user");
+				const role = interaction.options.getRole("role");
+			
+				if (!user && !role) {
+					return interaction.reply({ content: "Please specify a user or a role to blacklist.", ephemeral: true });
+				}
+			
+				// ✅ This now runs correctly only if a user or role exists
+				console.log("📥 Slash Input Debug:", {
+					userId: user?.id,
+					username: user?.username,
+					roleId: role?.id,
+					rolename: role?.name,
 				});
+			
+				if (user) {
+					await blacklistAdd.insertBlacklistDB(user.id, user.username);
+					const embed = new EmbedBuilder()
+						.setDescription(`✅ Added ${userMention(user.id)} to the blacklist.`)
+						.setColor(0x2ECC71);
+					await interaction.reply({ embeds: [embed] });
+				}
+			
+				if (role) {
+					// ✅ Call the unified function and pass role data
+					await blacklistAdd.insertBlacklistDB(null, null, role.id, role.name);
+					const embed = new EmbedBuilder()
+						.setDescription(`✅ Added role ${roleMention(role.id)} to the blacklist.`)
+						.setColor(0x2ECC71);
+					await interaction.reply({ embeds: [embed] });
+				}
+			
 				break;
+			}
+		
+case "remove": {
+	const user = interaction.options.getUser("user");
+	const role = interaction.options.getRole("role");
 
-			case "remove":
-				const userToRemove = interaction.options.getUser("user");
-				const userTag = userToRemove.tag;
-				blacklistRemove.removeBlacklistDB(userToRemove.id, userTag)
-					.then((resultMessage) => {
-						const removeEmbed = new EmbedBuilder()
-							.setDescription(resultMessage);
-						interaction.reply({
-							embeds: [removeEmbed],
-							ephemeral: false
-						});
-					});
-				break;
+	if (!user && !role) {
+		return interaction.reply({
+			content: "❌ Please specify a user or a role to remove from the blacklist.",
+			ephemeral: true
+		});
+	}
 
-			case "show":
-				const listOfUsers = await blacklistShow.showBlacklistDB(interaction.client);
-				const userInList = listOfUsers.join(`\n`);
-				const listEmbed = new EmbedBuilder()
-					.setTitle("Here is the list of blacklisted users/roles.")
-					.setDescription(`\n${userInList}`);
-				await interaction.reply({
-					embeds: [listEmbed],
-					ephemeral: false
-				});
-				break;
+	try {
+		// If user provided
+		if (user) {
+			const result = await blacklistRemove.removeBlacklistDB(user.id, user.username);
+			const embed = new EmbedBuilder().setDescription(result).setColor(0xE74C3C);
+			await interaction.reply({ embeds: [embed], ephemeral: true });
+		}
+
+		// If role provided
+		if (role) {
+			const result = await blacklistRemove.removeBlacklistRoleDB(role.id, role.name);
+			const embed = new EmbedBuilder().setDescription(result).setColor(0xE74C3C);
+			await interaction.reply({ embeds: [embed], ephemeral: true });
+		}
+	} catch (error) {
+		console.error("Blacklist remove error:", error);
+		await interaction.reply({
+			content: "❌ An error occurred while trying to remove from the blacklist.",
+			ephemeral: true
+		});
+	}
+
+	break;
+}
+
 		}
 	},
-
 };
