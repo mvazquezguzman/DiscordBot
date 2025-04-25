@@ -15,6 +15,11 @@ const roleTimeSchema = new mongoose.Schema({
     required: true,
     default: 10,
   },
+  voiceTimer: {
+    type: Number, //  Timer in minutes for voice inactivity
+    required: false,
+    default: 10, // Default if not set
+  }
 });
 
 // Export the model
