@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("@discordjs/builders");
 const RoleTimer = require("../models/roleTimeSchema");
 const { getInactiveUsers } = require("../functions/inactivity");
 const { removeUserFromDatabases } = require("../functions/userDatabaseManager");
+const {PermissionFlagsBits} = require("discord.js");
 
 const AUTO_PURGE_INTERVAL = 10 * 60 * 1000; // 10 minutes per check
 
@@ -21,17 +22,17 @@ async function startAutoPurge(guild) {
         if (!member) continue; // Skip if the member is not found
 
         // Get the highest role and update
-        const highestRole = member.roles.highest; 
+        const highestRole = member.roles.highest;
         const roleTimer = await RoleTimer.findOne({ roleId: highestRole.id });
         const roleTimeLimit = roleTimer
-          ? roleTimer.roleTimer * 60 * 1000
-          : 15 * 60 * 1000; // Default to 15 minutes if no timer exists
+            ? roleTimer.roleTimer * 60 * 1000
+            : 15 * 60 * 1000; // Default to 15 minutes if no timer exists
 
         const inactivityDuration = Date.now() - userInfo.lastMessageDate;
         if (inactivityDuration > roleTimeLimit) {
           try {
             await member.kick("Auto-purge: Inactive user");
-            
+
             // Clean up databases
             const cleanupResult = await removeUserFromDatabases(userId, userInfo.userName);
             cleanupResults.push({
@@ -63,15 +64,16 @@ async function startAutoPurge(guild) {
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("timer")
-    .setDescription("Shows or sets the auto-purge interval.")
-    .addIntegerOption(option =>
-      option
-        .setName("interval")
-        .setDescription("Set the auto-purge interval in minutes (default: 10).")
-        .setMinValue(1)
-        .setRequired(false)
-    ),
+      .setName("timer")
+      .setDescription("Shows or sets the auto-purge interval.")
+      .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+      .addIntegerOption(option =>
+          option
+              .setName("interval")
+              .setDescription("Set the auto-purge interval in minutes (default: 10).")
+              .setMinValue(1)
+              .setRequired(false)
+      ),
 
   async execute(interaction) {
     const interval = interaction.options.getInteger("interval");
