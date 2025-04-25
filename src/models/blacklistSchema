@@ -13,6 +13,18 @@ const blacklistSchema = new mongoose.Schema({
         }
       }
     ]
+  blackListedRoles: [ //  Add Role
+      {
+        roleId: {
+          type: String,
+          required: true
+        },
+        roleName: {
+          type: String,
+          required: true
+        }
+      }
+    ]
   });
 
 const blackListDB = mongoose.model("BlacklistUser", blacklistSchema);
