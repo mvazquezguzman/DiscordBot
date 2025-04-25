@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Navbar from "../components/Navbar";
 import PurgeHistory from "../components/PurgeHistory";
 import { useState } from 'react';
@@ -17,6 +17,7 @@ import {
 import { styled } from '@mui/material/styles';
 import { DataGrid } from '@mui/x-data-grid';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(3),
@@ -32,18 +33,34 @@ const PurgePage = () => {
     const [purgeInProgress, setPurgeInProgress] = useState(false);
 
     const columns = [
-        { 
-            field: 'userName', 
-            headerName: 'Username', 
-            flex: 1 
+        {
+            field: 'userName',
+            headerName: 'Username',
+            flex: 1
         },
         {
             field: 'formattedLastActive',
-            headerName: 'Last Active',
+            headerName: 'Last Active Date',
             flex: 1,
             renderCell: (params) => {
                 const dateValue = new Date(params.value);
                 return isNaN(dateValue.getTime()) ? "Invalid date" : dateValue.toLocaleString();
+            }
+        },
+        {
+            field: 'timeSinceActive',
+            headerName: 'Time Since Last Active',
+            flex: 1,
+            renderCell: (params) => {
+                const lastActive = new Date(params.row.lastMessageDate);
+                if (isNaN(lastActive.getTime())) return "Unknown";
+
+                const now = new Date();
+                const diffMs = now - lastActive;
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+                return `${diffDays}d ${diffHours}h`;
             }
         }
     ];
@@ -77,13 +94,13 @@ const PurgePage = () => {
                     userName: user.userName || 'Unknown User',
                     lastMessageDate: user.lastMessageDate || null,
                     // Add computed fields directly to avoid valueGetter errors
-                    formattedLastActive: user.lastMessageDate ? 
+                    formattedLastActive: user.lastMessageDate ?
                         new Date(user.lastMessageDate).toLocaleDateString() : '',
-                    daysInactive: user.lastMessageDate ? 
+                    daysInactive: user.lastMessageDate ?
                         Math.floor((new Date() - new Date(user.lastMessageDate)) / (1000 * 60 * 60 * 24)) : ''
                 };
             });
-            
+
             console.log('Processed Data:', processedData);
             setInactiveUsers(processedData);
         } catch (err) {
@@ -99,7 +116,7 @@ const PurgePage = () => {
         try {
             //Get user dat from localStorage
             const currentUser = JSON.parse(localStorage.getItem('user'));
-            
+
             //Debug
             //console.log("Current user:", currentUser);
 
@@ -167,16 +184,24 @@ const PurgePage = () => {
                         )}
 
 
-                        <div className="d-flex justify-content-center mb-3">
+                        <div className="d-flex justify-content-center mb-3 gap-2">
                             <Button
                                 variant="contained"
                                 className="custom-refresh-btn"
-                                onClick= {fetchInactiveUsers}
+                                onClick={fetchInactiveUsers}
                                 disabled={loading || purgeInProgress}
                             >
                                 {loading ? 'Loading...' : 'Preview Inactive Users'}
                             </Button>
 
+                            <Button
+                                variant="outlined"
+                                onClick={fetchInactiveUsers}
+                                disabled={loading || purgeInProgress}
+                                startIcon={<RefreshIcon />}
+                            >
+                                Refresh
+                            </Button>
                         </div>
 
                         {inactiveUsers.length > 0 ? (
@@ -200,7 +225,7 @@ const PurgePage = () => {
                                 <div className="d-flex justify-content-center mt-2">
                                     <Button
                                         variant="contained"
-                                        color="error"
+                                        className="custom-refresh-btn"
                                         onClick={() => setOpenDialog(true)}
                                         disabled={purgeInProgress}
                                     >
@@ -229,19 +254,22 @@ const PurgePage = () => {
                             </DialogContent>
                             <DialogActions>
                                 <Button
+                                    className="custom-refresh-btn"
                                     onClick={() => setOpenDialog(false)}
                                     disabled={purgeInProgress}
                                 >
                                     Cancel
                                 </Button>
                                 <Button
+                                    className="custom-refresh-btn"
                                     onClick={handlePurge}
-                                    color="error"
-                                    variant="contained"
                                     disabled={purgeInProgress}
-                                    startIcon={purgeInProgress && <CircularProgress size={20} color="inherit"/>}
                                 >
-                                    {purgeInProgress ? 'Purging...' : 'Confirm Purge'}
+                                    {purgeInProgress ? (
+                                        <CircularProgress size={24} color="inherit" />
+                                    ) : (
+                                        'Confirm Purge'
+                                    )}
                                 </Button>
                             </DialogActions>
                         </Dialog>
