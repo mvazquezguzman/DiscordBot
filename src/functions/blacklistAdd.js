@@ -1,10 +1,8 @@
-const { User } = require("discord.js");
 const { blackListDB } = require('../models/blacklistSchema');
 
-
 async function insertBlacklistDB(userid, username, roleid = null, rolename = null) {
-    if (!username && !rolename) {
-        console.error("Username or role name must be provided.");
+    if (!userid && !roleid) {
+        console.error("User ID or Role ID must be provided.");
         return;
     }
 
@@ -21,19 +19,25 @@ async function insertBlacklistDB(userid, username, roleid = null, rolename = nul
                 {},
                 { $addToSet: { blackListedUsers: { userId: userIdString, userName: userNameString } } }
             );
-            console.log(`User ${userIdString} has been blacklisted.`);
+            console.log(`✅ User ${userIdString} has been blacklisted.`);
         }
 
         if (roleIdString && roleNameString) {
+            // 🔍 Debug log for role insertion
+            console.log('🛠 Attempting to insert role:', {
+                roleIdString,
+                roleNameString
+            });
+
             await blackListDB.updateOne(
                 {},
                 { $addToSet: { blackListedRoles: { roleId: roleIdString, roleName: roleNameString } } }
             );
-            console.log(`Role ${roleIdString} has been blacklisted.`);
+            console.log(`✅ Role ${roleIdString} has been blacklisted.`);
         }
 
     } else {
-        // Create new schema document
+        // Create new document if it doesn't exist
         const newDoc = {
             blackListedUsers: [],
             blackListedRoles: []
@@ -44,14 +48,20 @@ async function insertBlacklistDB(userid, username, roleid = null, rolename = nul
         }
 
         if (roleIdString && roleNameString) {
+            // 🔍 Debug log for role insertion (initial doc)
+            console.log('🛠 Attempting to insert role into new document:', {
+                roleIdString,
+                roleNameString
+            });
+
             newDoc.blackListedRoles.push({ roleId: roleIdString, roleName: roleNameString });
         }
 
         await blackListDB.create(newDoc);
-        console.log(`New Schema has been created with initial values.`);
+        console.log(`📄 New blacklist document created with initial values.`);
     }
 }
 
 module.exports = {
     insertBlacklistDB
-}
+};
