@@ -15,6 +15,7 @@ const { logUsersAndRoles } = require('./functions/userInformation');
 const { startAutoPurge } = require('./commands/timer');
 const { initializeDefaultRoleTimers } = require("./commands/roletimer");
 
+const Channel = require('./models/channelSchema'); 
 
 // Import Node.js filesystem module for file operations
 const fs = require('fs');
@@ -155,6 +156,32 @@ client.on('interactionCreate', async (interaction) => {
 
 // Debug log for the bot token for debugging
 // console.log('Bot Token:', process.env.TOKEN); // Debugging line
+
+const ChannelSettings = require('./models/channelSchema'); // Make sure you have this schema
+
+client.on('voiceStateUpdate', async (oldState, newState) => {
+    // Only act on join or leave
+    if (oldState.channelId === newState.channelId) return;
+  
+    try {
+      const logChannelDoc = await Channel.findOne({ isVoiceLogChannel: true });
+      if (!logChannelDoc) return;
+  
+      const logChannel = client.channels.cache.get(logChannelDoc.id);
+      if (!logChannel) return;
+  
+      const member = newState.member || oldState.member;
+      const username = member?.user?.username || 'Unknown User';
+  
+      if (newState.channel) {
+        await logChannel.send(` ${username} **joined** ${newState.channel.name}`);
+      } else if (oldState.channel) {
+        await logChannel.send(` ${username} **left** ${oldState.channel.name}`);
+      }
+    } catch (error) {
+      console.error(" Error logging voice activity:", error);
+    }
+  });
 
 // Log in to Discord using the token from environment variables
 client.login(process.env.TOKEN)
