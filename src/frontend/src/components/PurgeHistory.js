@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Typography, Box, CircularProgress, Paper } from '@mui/material';
+import {
+    Typography,
+    Box,
+    CircularProgress,
+    Paper,
+    Collapse,
+    IconButton
+} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 function PurgeHistory() {
     const [purgeHistory, setPurgeHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [expandedItems, setExpandedItems] = useState({});
 
     useEffect(() => {
         const fetchPurgeHistory = async () => {
@@ -13,7 +23,6 @@ function PurgeHistory() {
                 const response = await axios.get(`http://localhost:5011/purge-history`, {
                     credentials: 'include'
                 });
-                console.log('Purge history response:', response.data);
                 setPurgeHistory(response.data);
                 setError(null);
             } catch (err) {
@@ -26,6 +35,13 @@ function PurgeHistory() {
 
         fetchPurgeHistory();
     }, []);
+
+    const handleExpandClick = (index) => {
+        setExpandedItems(prev => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
 
     const formatDate = (dateString) => {
         const options = {
@@ -48,7 +64,7 @@ function PurgeHistory() {
             <div className="container">
                 <Typography variant="body1" class="descrip">
                     This section provides a log of admins who had initiated a purge, and what users were purged. It also
-                    displays the date and time of the initiated purge.
+                    displays the date and time of the initiated purge. Click on each entry to see the list of purged users.
                 </Typography>
             </div>
 
@@ -68,22 +84,66 @@ function PurgeHistory() {
                                 <Paper
                                     key={index}
                                     elevation={1}
-                                    className="mb-3 p-3"
+                                    className="mb-3"
                                     sx={{
-                                        p: 2,
-                                        bgcolor: '#f5f0e6',  // Beige background color
+                                        bgcolor: '#f5f0e6', // Beige background color
                                         borderRadius: 1,
                                         '&:hover': {
-                                            bgcolor: '#f0e9dd'  // Slightly darker beige on hover
+                                            bgcolor: '#f0e9dd' // Slightly darker beige on hover
                                         }
                                     }}
                                 >
-                                    <Typography variant="subtitle1" sx={{color: '#2c2c2c'}}>
-                                        <strong>{purge.username}</strong> purged {purge.purgedUsers?.length || 0} users
-                                    </Typography>
-                                    <Typography variant="body2" sx={{color: '#666'}}>
-                                        {formatDate(purge.executionDate)}
-                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            p: 2,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            cursor: 'pointer'
+                                        }}
+                                        onClick={() => handleExpandClick(index)}
+                                    >
+                                        <Box>
+                                            <Typography variant="subtitle1" sx={{color: '#2c2c2c'}}>
+                                                <strong>{purge.username}</strong> purged {purge.purgedUsers?.length || 0} users
+                                            </Typography>
+                                            <Typography variant="body2" sx={{color: '#666'}}>
+                                                {formatDate(purge.executionDate)}
+                                            </Typography>
+                                        </Box>
+                                        <IconButton
+                                            aria-label="expand"
+                                            size="small"
+                                            sx={{color: '#666'}}
+                                        >
+                                            {expandedItems[index] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                                        </IconButton>
+                                    </Box>
+
+                                    <Collapse in={expandedItems[index]} timeout="auto" unmountOnExit>
+                                        <Box sx={{p: 2, pt: 0, borderTop: '1px solid #ddd'}}>
+                                            {purge.purgedUsers && purge.purgedUsers.length > 0 ? (
+                                                <Box sx={{ml: 2}}>
+                                                    <Typography variant="body2" sx={{color: '#666', fontWeight: 'bold', mb: 1}}>
+                                                        Purged Users:
+                                                    </Typography>
+                                                    {purge.purgedUsers.map((user, userIndex) => (
+                                                        <Typography
+                                                            key={userIndex}
+                                                            variant="body2"
+                                                            sx={{color: '#666', ml: 2}}
+                                                        >
+                                                            • {user.username}
+                                                        </Typography>
+                                                    ))}
+                                                </Box>
+                                            ) : (
+                                                <Typography variant="body2" sx={{color: '#666', ml: 2}}>
+                                                    No users were purged
+                                                </Typography>
+                                            )}
+                                        </Box>
+                                    </Collapse>
                                 </Paper>
                             ))}
                         </Box>
