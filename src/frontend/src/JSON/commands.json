@@ -3,7 +3,7 @@
   { "command": "/blacklist show", "description": "Shows the current blacklisted user/roles." },
   { "command": "/blacklist add (user/role)", "description": "Lets you add a specific user/role to a blacklist which makes them bypass the purges." },
   { "command": "/blacklist remove (user/role)", "description": "Lets you remove a specific user/role from the blacklist." },
-  { "command": "/purge", "description": "Starts a manual purge which will gather all inactive users and send specified channel for confirmation." },
+  { "command": "/purge", "description": "Starts a manual purge which will gather all inactive users and send specified channel for confirmation. Can be edited to remove certain users or aborted to prevent a purge." },
   { "command": "/roletimer (role name) (amount of time in days)", "description": "Sets the grace period for a certain role." },
   { "command": "/setpurge (time in days)", "description": "Sets the specified automated purge window (in days)." },
   { "command": "/timer (role) (time)", "description": "Sets a time window (in days) for a role before considering them inactive." },
