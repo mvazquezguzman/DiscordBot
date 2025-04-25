@@ -42,50 +42,49 @@ const UserActivityPage = () => {
 
     return (
         <>
-        <Navbar/>
-        <div className="container my-4">
-            <Typography variant="h4" className="text-center mb-4">
-                User Activity Log
-            </Typography>
-
-            <div className="container">
-                <Typography variant="body1" class="descrip">
-                    This table provides an overview of user activity within the application, including their latest
-                    messages, reactions, and voice interactions. Use the headers of the table which are toggleable
-                    to quickly find specific users or review their recent activities. To refresh the table toggle
-                    the refresh button below the table.
+            <Navbar/>
+            <div className="container my-4">
+                <Typography variant="h4" className="text-center mb-4">
+                    User Activity Log
                 </Typography>
-            </div>
 
-            <div className="row justify-content-center">
-                <div className="table table-sm">
-                    <Box sx={{height: 800, width: '100%'}}>
-                        {userActivities.length > 0 ? (
-                            <DataGrid
-                                rows={userActivities}
-                                columns={columns}
-                                pageSize={5}
-                                rowsPerPageOptions={[5]}
-                                getRowId={(row) => row._id}
-                            />
-                        ) : (
-                            <Typography variant="body1" className="text-center">
-                                No user activities found.
-                            </Typography>
-                        )}
-                    </Box>
-                    <div className="d-flex justify-content-center mt-3"> {/* Centered Refresh Button */}
-                        <Button
-                            variant="contained"
-                            className="custom-refresh-btn"
-                            onClick={fetchUserActivities}
-                        >
-                            Refresh
-                        </Button>
+                <div className="container">
+                    <Typography variant="body1" class="descrip">
+                        This table displays user activity tracking within the server, showing when users were last active through
+                        messages or voice interactions. Use the sortable column headers to organize the data, and the refresh
+                        button below to update the activity log with the latest information.
+                    </Typography>
+                </div>
+
+                <div className="row justify-content-center">
+                    <div className="table table-sm">
+                        <Box sx={{height: 800, width: '100%'}}>
+                            {userActivities.length > 0 ? (
+                                <DataGrid
+                                    rows={userActivities}
+                                    columns={columns}
+                                    pageSize={5}
+                                    rowsPerPageOptions={[5]}
+                                    getRowId={(row) => row._id}
+                                />
+                            ) : (
+                                <Typography variant="body1" className="text-center">
+                                    No user activities found.
+                                </Typography>
+                            )}
+                        </Box>
+                        <div className="d-flex justify-content-center mt-3"> {/* Centered Refresh Button */}
+                            <Button
+                                variant="contained"
+                                className="custom-refresh-btn"
+                                onClick={fetchUserActivities}
+                            >
+                                Refresh
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </>
     );
 };
