@@ -21,6 +21,10 @@ const channelSchema = new Schema({
   createdAt: {
     type: Date,
     required: true
+  },
+  isVoiceLogChannel: { //adding voicechannel
+    type: Boolean,
+    default: false
   }
 });
 
