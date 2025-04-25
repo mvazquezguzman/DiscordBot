@@ -2,29 +2,53 @@ const { User } = require("discord.js");
 const { blackListDB } = require('../models/blacklistSchema');
 
 
-async function insertBlacklistDB(userid, username) {
-    if (!username) {
-        console.error("Username must be provided.");
+async function insertBlacklistDB(userid, username, roleid = null, rolename = null) {
+    if (!username && !rolename) {
+        console.error("Username or role name must be provided.");
         return;
     }
 
-    const userIdString = userid.toString();
-    const userNameString = username.toString();
+    const userIdString = userid ? userid.toString() : null;
+    const userNameString = username ? username.toString() : null;
+    const roleIdString = roleid ? roleid.toString() : null;
+    const roleNameString = rolename ? rolename.toString() : null;
+
     const doc = await blackListDB.findOne();
 
     if (doc) {
-        // Update the existing document by adding the user object to the array
-        await blackListDB.updateOne(
-            {},
-            { $addToSet: { blackListedUsers: { userId: userIdString, userName: userNameString } } }
-        );
-        console.log(`User ${userIdString} has been blacklisted.`);
+        if (userIdString && userNameString) {
+            await blackListDB.updateOne(
+                {},
+                { $addToSet: { blackListedUsers: { userId: userIdString, userName: userNameString } } }
+            );
+            console.log(`User ${userIdString} has been blacklisted.`);
+        }
+
+        if (roleIdString && roleNameString) {
+            await blackListDB.updateOne(
+                {},
+                { $addToSet: { blackListedRoles: { roleId: roleIdString, roleName: roleNameString } } }
+            );
+            console.log(`Role ${roleIdString} has been blacklisted.`);
+        }
+
     } else {
-        // Create a new document with the first user object
-        await blackListDB.create({
-            blackListedUsers: [{ userId: userIdString, userName: userNameString }]
-        });
-        console.log(`New Schema has been created with ${userIdString} ${userNameString} as the first value.`);
+        // Create new schema document
+        const newDoc = {
+            blackListedUsers: [],
+            blackListedRoles: []
+        };
+
+        if (userIdString && userNameString) {
+            newDoc.blackListedUsers.push({ userId: userIdString, userName: userNameString });
+        }
+
+        if (roleIdString && roleNameString) {
+            newDoc.blackListedRoles.push({ roleId: roleIdString, roleName: roleNameString });
+        }
+
+        await blackListDB.create(newDoc);
+        console.log(`New Schema has been created with initial values.`);
     }
 }
 
