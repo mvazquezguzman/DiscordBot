@@ -29,27 +29,6 @@ const UserActivityPage = () => {
         { field: 'userName', headerName: 'User Name', width: 150, flex: 1 },
         { field: 'channelName', headerName: 'Channel Name', width: 150 },
         {
-            field: 'lastMessage',
-            headerName: 'Last Message',
-            width: 200,
-            renderCell: (params) => (
-                <div className="centered">
-                    {params.value || "-"}
-                </div>
-            ),
-        },
-        {
-            field: 'lastVoiceActivity',
-            headerName: 'Last Voice Activity',
-            width: 200,
-            renderCell: (params) => {
-                const dateValue = new Date(params.value);
-                return params.value
-                    ? isNaN(dateValue.getTime()) ? "Invalid date" : dateValue.toLocaleString()
-                    : "No Activity";
-            },
-        },
-        {
             field: 'lastActive',
             headerName: 'Last Active',
             width: 200,
