@@ -119,6 +119,18 @@ case "remove": {
 
 	break;
 }
+case "show": {
+	const results = await blacklistShow.showBlacklistDB(interaction.client);
+	const list = results.join(`\n`) || "No users or roles are currently blacklisted.";
+	const embed = new EmbedBuilder()
+		.setTitle("Here is the list of blacklisted users/roles.")
+		.setDescription(list)
+		.setColor(0x5865F2);
+
+	await interaction.reply({ embeds: [embed], ephemeral: true });
+	break;
+}
+
 
 		}
 	},
