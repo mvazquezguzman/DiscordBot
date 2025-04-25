@@ -57,7 +57,8 @@ async function getWarning(guild) {
 
 const data = new SlashCommandBuilder()
     .setName('warn')
-    .setDescription('Shows a purge preview, and warns users of purge eligibility.');
+    .setDescription('Shows a purge preview, and warns users of purge eligibility.')
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 module.exports = {
     data,
