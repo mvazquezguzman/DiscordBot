@@ -20,7 +20,7 @@ module.exports = {
         '/timer (role) (time) - Sets a time window (in days) for a role before considering them inactive.',
         '/show inactivity - Shows members who are considered "inactive" that are eligible to be purged.',
         '/warn - Warns all members that are eligible to be purged through a direct message.',
-            'preview - Allows you to view users that are eligible to be purged, and edit/interact with the list.',
+            '/preview - Allows you to view users that are eligible to be purged, and edit/interact with the list.',
 ];
 
       const embed = new EmbedBuilder()
