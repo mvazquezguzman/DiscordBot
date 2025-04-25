@@ -74,16 +74,22 @@ module.exports = {
         try {
             const inactiveUsers = await getInactiveUsers();
             const blacklistDoc = await blackListDB.findOne();
-            const blacklistedUserIds = blacklistDoc ? blacklistDoc.blackListedUsers.map(user => user.userId) : [];
+            const blacklistedUserIds = blacklistDoc?.blackListedUsers.map(user => user.userId) || [];
+            const blacklistedRoleIds = blacklistDoc?.blackListedRoles.map(role => role.roleId) || [];
 
             const userIds = [];
 
             for (const [userId] of inactiveUsers.entries()) {
-                if (!blacklistedUserIds.includes(userId)) {
+                const member = await interaction.guild.members.fetch(userId).catch(() => null);
+                if (!member) continue;
+
+                const isUserBlacklisted = blacklistedUserIds.includes(userId);
+                const isRoleBlacklisted = member.roles.cache.some(role => blacklistedRoleIds.includes(role.id));
+
+                if (!isUserBlacklisted && !isRoleBlacklisted) {
                     userIds.push(userId);
                 }
             }
-
             if (userIds.length === 0) {
                 return interaction.editReply('No users are currently eligible to be purged.');
             }
