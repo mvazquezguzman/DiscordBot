@@ -13,24 +13,12 @@ const userActivitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    lastMessage: {
-        type: String,
-        default: ''
-    },
-    lastMessageDate: {
-        type: Date,
-        required: true
-    },
-    lastVoiceActivity: {
-        type: Date,
-        default: null
-    },
     lastActive: {
         type: Date,
         required: true
-    },
+    }
 });
 
 const UserActivity = mongoose.model('UserActivity', userActivitySchema);
+module.exports = UserActivity;
 
-module.exports = mongoose.model('UserActivity', userActivitySchema);
