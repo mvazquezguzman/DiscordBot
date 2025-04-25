@@ -1,5 +1,6 @@
 const { executePurge } = require('../commands/purge');
 const PurgeSchedule = require('../models/scheduleSchema');
+const { getInactiveUsers } = require('../functions/inactivity');
 const { Collection } = require('discord.js');
 
 function parseTime(str) {
@@ -39,7 +40,11 @@ async function runAutoPurge(client) {
     const executorUsername = client.user.username;
     const channel = client.channels.cache.find(c => c.name === 'testing');
 
-    const result = await executePurge(guild, executorId, executorUsername);
+    // Fetch inactive users and pass IDs to executePurge
+    const inactiveUsers = await getInactiveUsers();
+    const userIds = [...inactiveUsers.keys()];
+
+    const result = await executePurge(guild, executorId, executorUsername, userIds);
     schedule.lastRun = new Date();
     await schedule.save();
 
