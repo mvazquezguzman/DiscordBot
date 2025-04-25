@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 const { getInactiveUsers } = require("../functions/inactivity");
 const { PurgeHistory } = require("../models/purgeHistorySchema");
 const { blackListDB } = require("../models/blacklistSchema");
+const {PermissionFlagsBits} = require("discord.js");
 
 const purgeSessions = new Map();
 
@@ -66,7 +67,8 @@ async function executePurge(guild, executorId, executorUsername, userIds) {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
-        .setDescription('Preview and purge inactive users'),
+        .setDescription('Preview and purge inactive users')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
@@ -183,42 +185,42 @@ module.exports = {
 
     async selectMenuInteraction(interaction) {
         if (!interaction.isStringSelectMenu()) return;
-    
+
         await interaction.deferReply({ ephemeral: true });
-    
+
         const selectedUserIds = interaction.values;
         const session = purgeSessions.get(interaction.user.id);
-    
+
         if (!session) {
             return interaction.editReply({ content: 'No purge session found.' });
         }
-    
+
         session.userIds = session.userIds.filter(id => !selectedUserIds.includes(id));
-    
+
         if (session.userIds.length === 0) {
             purgeSessions.delete(interaction.user.id);
             return interaction.editReply({ content: 'No users are currently eligible to be purged after exclusions.' });
         }
-    
+
         const { userList, userCount } = await getPurgePreview(interaction.guild, session.userIds);
-    
+
         if (userCount === 0) {
             purgeSessions.delete(interaction.user.id);
             return interaction.editReply({ content: 'No users are currently eligible to be purged after exclusions.' });
         }
-    
+
         const embed = new EmbedBuilder()
             .setColor(0xFF0000)
             .setTitle('Updated Purge Preview')
             .setDescription(`The following ${userCount} users are still eligible for purging after exclusions:\n\n${userList}\n\nWould you like to proceed?`);
-    
+
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder().setCustomId('confirm').setLabel('Confirm').setStyle(ButtonStyle.Success),
             new ButtonBuilder().setCustomId('abort').setLabel('Abort').setStyle(ButtonStyle.Danger),
             new ButtonBuilder().setCustomId('edit').setLabel('Edit').setStyle(ButtonStyle.Primary)
         );
-    
-        await interaction.editReply({ 
+
+        await interaction.editReply({
             content: 'Here is the updated purge list after exclusions:',
             embeds: [embed],
             components: [row],
