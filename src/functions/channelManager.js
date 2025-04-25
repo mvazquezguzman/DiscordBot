@@ -83,10 +83,10 @@ async function trackAndLogTextChannelActivity(channel) {
             const user = message.author;
             if (!userActivities.has(user.id)) {
                 userActivities.set(user.id, {
-                    userName: user.username,
-                    lastMessage: message.content || '',
+                    userName: user.username || '',
                     lastActive: message.createdAt,
-                    lastVoiceActivity: null // Initialize lastVoiceActivity as null
+                    lastMessage: message.content || '',
+                    lastMessageDate: message.createdAt
                 });
             } else {
                 const existingActivity = userActivities.get(user.id);
