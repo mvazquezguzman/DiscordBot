@@ -104,13 +104,10 @@ async function trackAndLogTextChannelActivity(channel) {
             console.log(`UserID: ${userId}, Activity:`, activity); // Log the structure for debugging
 
             await UserActivity.findOneAndUpdate(
-                { userId: userId.toString(), channelName: channel.name },
+                { userId: userId.toString() },
                 {
-                    userName: activity.userName,
-                    lastMessage: activity.lastMessage,
-                    lastMessageDate: activity.lastMessageDate, // Ensure date is passed correctly
-                    lastActive: activity.lastActive,
-                    lastVoiceActivity: activity.lastVoiceActivity
+                  userName: activity.userName,
+                 lastActive: activity.lastActive
                 },
                 { upsert: true, new: true }
             );
