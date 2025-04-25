@@ -12,7 +12,7 @@ const blacklistSchema = new mongoose.Schema({
           required: true
         }
       }
-    ]
+    ],
   blackListedRoles: [ //  Add Role
       {
         roleId: {
