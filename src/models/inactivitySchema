@@ -16,6 +16,14 @@ const inactivitySchema = new mongoose.Schema({
   lastMessage: {
     type: String,
     required: true
+  },
+  lastActive: {
+    type: Date,
+    required: true
+  },
+  lastVoiceActivity: {
+    type: Date,
+    default: null
   }
 });
 
