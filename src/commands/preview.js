@@ -50,12 +50,12 @@ async function getPurgePreview(guild) {
     return {userList, userCount};
 }
 
-const data = new SlashCommandBuilder()
-    .setName('preview')
-    .setDescription('Preview a list of users who will be purged');
-
 module.exports = {
-    data,
+    data : new SlashCommandBuilder()
+        .setName('preview')
+        .setDescription('Preview a list of users who will be purged')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+
     async execute(interaction) {
         await interaction.deferReply();
 
