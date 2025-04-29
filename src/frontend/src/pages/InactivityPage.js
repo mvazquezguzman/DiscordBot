@@ -73,7 +73,7 @@ const InactivityPage = () => {
                                 No inactive users found.
                             </Typography>
                         )}
-                        <div className="d-flex justify-content-center mt-2">
+
                             <Button
                                 variant="contained"
                                 className="custom-refresh-btn"
@@ -81,7 +81,7 @@ const InactivityPage = () => {
                             >
                                 Refresh
                             </Button>
-                        </div>
+
                     </div>
                 </div>
             </div>
