@@ -38,12 +38,12 @@ function App() {
                     <Route path="/login-success" element={<LoginSuccessPage />} />
 
                     {/* Wrap all routes with ProtectedRoute */}
-                     {/* To test without login, remove ProtectedRoute */}
                     <Route
                         path="/*"
                         element={
                             <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
-                                <Routes>
+
+                            <Routes>
                                     <Route path="/" element={<Home />} />
                                     <Route path="/useractivity" element={<UserActivityPage />} />
                                     <Route path="/inactivity" element={<Inactivity />} />
@@ -54,6 +54,7 @@ function App() {
                                     <Route path="/roles" element={<RolesPage />} />
                                 </Routes>
                             </ProtectedRoute>
+
                         }
                     />
                     {/* Login page route outside ProtectedRoute */}
