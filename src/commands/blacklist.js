@@ -9,37 +9,37 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("blacklist")
 		.setDescription("Adds or Removes people or roles from the blacklist.")
-		.addSubcommand((subcommand) => 
+		.addSubcommand((subcommand) =>
 			subcommand.setName("add")
-			.setDescription("Adds User or Role")
-			.addUserOption((option) =>
-				option.setName("user")
-					.setDescription("User you are adding")
-					.setRequired(false)
-			)
-			.addRoleOption((option) =>
-				option.setName("role")
-					.setDescription("Role you are adding")
-					.setRequired(false)
-			)
+				.setDescription("Adds User or Role")
+				.addUserOption((option) =>
+					option.setName("user")
+						.setDescription("User you are adding")
+						.setRequired(false)
+				)
+				.addRoleOption((option) =>
+					option.setName("role")
+						.setDescription("Role you are adding")
+						.setRequired(false)
+				)
 		)
 		.addSubcommand((subcommand) =>
 			subcommand.setName("remove")
-			.setDescription("Removes User or Role")
-			.addUserOption((option) =>
-				option.setName("user")
-					.setDescription("User you are removing")
-					.setRequired(false)
-			)
-			.addRoleOption((option) =>
-				option.setName("role")
-					.setDescription("Role you are removing")
-					.setRequired(false)
-			)
+				.setDescription("Removes User or Role")
+				.addUserOption((option) =>
+					option.setName("user")
+						.setDescription("User you are removing")
+						.setRequired(false)
+				)
+				.addRoleOption((option) =>
+					option.setName("role")
+						.setDescription("Role you are removing")
+						.setRequired(false)
+				)
 		)
 		.addSubcommand((subcommand) =>
 			subcommand.setName("show")
-			.setDescription("Shows the current blacklisted users and roles.")
+				.setDescription("Shows the current blacklisted users and roles.")
 		)
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
@@ -51,11 +51,11 @@ module.exports = {
 			case "add": {
 				const user = interaction.options.getUser("user");
 				const role = interaction.options.getRole("role");
-			
+
 				if (!user && !role) {
 					return interaction.reply({ content: "Please specify a user or a role to blacklist.", ephemeral: true });
 				}
-			
+
 				// ✅ This now runs correctly only if a user or role exists
 				console.log("📥 Slash Input Debug:", {
 					userId: user?.id,
@@ -63,7 +63,7 @@ module.exports = {
 					roleId: role?.id,
 					rolename: role?.name,
 				});
-			
+
 				if (user) {
 					await blacklistAdd.insertBlacklistDB(user.id, user.username);
 					const embed = new EmbedBuilder()
@@ -71,7 +71,7 @@ module.exports = {
 						.setColor(0x2ECC71);
 					await interaction.reply({ embeds: [embed] });
 				}
-			
+
 				if (role) {
 					// ✅ Call the unified function and pass role data
 					await blacklistAdd.insertBlacklistDB(null, null, role.id, role.name);
@@ -80,57 +80,55 @@ module.exports = {
 						.setColor(0x2ECC71);
 					await interaction.reply({ embeds: [embed] });
 				}
-			
+
 				break;
 			}
-		
-case "remove": {
-	const user = interaction.options.getUser("user");
-	const role = interaction.options.getRole("role");
 
-	if (!user && !role) {
-		return interaction.reply({
-			content: "❌ Please specify a user or a role to remove from the blacklist.",
-			ephemeral: true
-		});
-	}
+			case "remove": {
+				const user = interaction.options.getUser("user");
+				const role = interaction.options.getRole("role");
 
-	try {
-		// If user provided
-		if (user) {
-			const result = await blacklistRemove.removeBlacklistDB(user.id, user.username);
-			const embed = new EmbedBuilder().setDescription(result).setColor(0xE74C3C);
-			await interaction.reply({ embeds: [embed], ephemeral: true });
-		}
+				if (!user && !role) {
+					return interaction.reply({
+						content: "❌ Please specify a user or a role to remove from the blacklist.",
+						ephemeral: true
+					});
+				}
 
-		// If role provided
-		if (role) {
-			const result = await blacklistRemove.removeBlacklistRoleDB(role.id, role.name);
-			const embed = new EmbedBuilder().setDescription(result).setColor(0xE74C3C);
-			await interaction.reply({ embeds: [embed], ephemeral: true });
-		}
-	} catch (error) {
-		console.error("Blacklist remove error:", error);
-		await interaction.reply({
-			content: "❌ An error occurred while trying to remove from the blacklist.",
-			ephemeral: true
-		});
-	}
+				try {
+					// If user provided
+					if (user) {
+						const result = await blacklistRemove.removeBlacklistDB(user.id, user.username);
+						const embed = new EmbedBuilder().setDescription(result).setColor(0xE74C3C);
+						await interaction.reply({ embeds: [embed], ephemeral: true });
+					}
 
-	break;
-}
-case "show": {
-	const results = await blacklistShow.showBlacklistDB(interaction.client);
-	const list = results.join(`\n`) || "No users or roles are currently blacklisted.";
-	const embed = new EmbedBuilder()
-		.setTitle("Here is the list of blacklisted users/roles.")
-		.setDescription(list)
-		.setColor(0x5865F2);
+					// If role provided
+					if (role) {
+						const result = await blacklistRemove.removeBlacklistRoleDB(role.id, role.name);
+						const embed = new EmbedBuilder().setDescription(result).setColor(0xE74C3C);
+						await interaction.reply({ embeds: [embed], ephemeral: true });
+					}
+				} catch (error) {
+					console.error("Blacklist remove error:", error);
+					await interaction.reply({
+						content: "❌ An error occurred while trying to remove from the blacklist.",
+						ephemeral: true
+					});
+				}
 
-	await interaction.reply({ embeds: [embed], ephemeral: true });
-	break;
-}
-
+				break;
+			}
+			case "show": {
+				const results = await blacklistShow.showBlacklistDB(interaction.client);
+				const list = results.join('\n') || "No users or roles are currently blacklisted.";
+				const embed = new EmbedBuilder()
+					.setTitle("Here is the list of blacklisted users/roles.")
+					.setDescription(list)
+					.setColor(0x5865F2);
+				await interaction.reply({embeds: [embed], ephemeral: true});
+				break;
+			}
 
 		}
 	},
