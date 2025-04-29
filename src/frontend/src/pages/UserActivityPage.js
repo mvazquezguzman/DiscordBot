@@ -72,8 +72,7 @@ const UserActivityPage = () => {
                                     No user activities found.
                                 </Typography>
                             )}
-                        </Box>
-                        <div className="d-flex justify-content-center mt-3"> {/* Centered Refresh Button */}
+                        </Box> {/* Centered Refresh Button */}
                             <Button
                                 variant="contained"
                                 className="custom-refresh-btn"
@@ -81,7 +80,7 @@ const UserActivityPage = () => {
                             >
                                 Refresh
                             </Button>
-                        </div>
+
                     </div>
                 </div>
             </div>
