@@ -184,7 +184,6 @@ const PurgePage = () => {
                         )}
 
 
-                        <div className="d-flex justify-content-center mb-3 gap-2">
                             <Button
                                 variant="contained"
                                 className="custom-refresh-btn"
@@ -195,14 +194,16 @@ const PurgePage = () => {
                             </Button>
 
                             <Button
-                                variant="outlined"
+
+                                variant="contained"
+                                className="custom-refresh-btn"
                                 onClick={fetchInactiveUsers}
                                 disabled={loading || purgeInProgress}
                                 startIcon={<RefreshIcon />}
                             >
                                 Refresh
                             </Button>
-                        </div>
+
 
                         {inactiveUsers.length > 0 ? (
                             <>
@@ -222,7 +223,7 @@ const PurgePage = () => {
                                     />
                                 </Box>
 
-                                <div className="d-flex justify-content-center mt-2">
+
                                     <Button
                                         variant="contained"
                                         className="custom-refresh-btn"
@@ -231,7 +232,7 @@ const PurgePage = () => {
                                     >
                                         Initiate Purge
                                     </Button>
-                                </div>
+
                             </>
                         ) : (
                             <Typography variant="body1" className="text-center">
@@ -254,6 +255,7 @@ const PurgePage = () => {
                             </DialogContent>
                             <DialogActions>
                                 <Button
+                                    variant="contained"
                                     className="custom-refresh-btn"
                                     onClick={() => setOpenDialog(false)}
                                     disabled={purgeInProgress}
@@ -261,6 +263,7 @@ const PurgePage = () => {
                                     Cancel
                                 </Button>
                                 <Button
+                                    variant="contained"
                                     className="custom-refresh-btn"
                                     onClick={handlePurge}
                                     disabled={purgeInProgress}
