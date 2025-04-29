@@ -82,7 +82,7 @@ const RolesPage = () => {
                                 </Typography>
                             )}
                         </Box>
-                        <div className="d-flex justify-content-center mt-3">
+
                             <Button
                                 variant="contained"
                                 className="custom-refresh-btn"
@@ -90,7 +90,7 @@ const RolesPage = () => {
                                 >
                                 Refresh
                             </Button>
-                        </div>
+
                     </div>
                 </div>
             </div>
