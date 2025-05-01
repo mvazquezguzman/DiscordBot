@@ -271,7 +271,9 @@ As part of our Software Development II course with Dr. Anca Doloc-Mihu, we were 
 2. Testing Lead :test_tube:
 
 ## :film_projector: Project Flyer & Video
-TBA
+![Discord Bot Flyer](documents/docs-Spring2025/CtrlAltkick%20Flyer.png)
+
+[Watch the demo video on YouTube](https://www.youtube.com/watch?v=Q5tvvNmHxUE)
 
 ## :white_check_mark: License
 <a href="https://github.com/GGC-SD/DiscordBot">CtrlAltKick Bot</a> © 2025 by <a href="https://github.com/GGC-SD/DiscordBot/graphs/contributors" target="_blank">Abdou Senghore, Huyen Pham, Matilda Vasquez-Guzman, Nikki Thao, Anca Doloc Mihu, David Rivera, Mike Deiters</a> is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>. See the [LICENSE](./documents/docs-Spring2025/License.md) file for details.
